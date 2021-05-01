@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DetailUserActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/layout_start"
+        android:paddingTop="@dimen/layout_top"
+        android:paddingEnd="@dimen/layout_end"
+        android:paddingBottom="@dimen/layout_bottom">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_detail_user"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            tools:src="@drawable/ic_launcher_background"
+            style="@style/Theme.GithubApp.Detail.Header"/>
+        <TextView
+            android:id="@+id/tv_detail_nama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_top"
+            android:layout_below="@+id/civ_detail_user"
+            android:textSize="18sp"
+            android:hint="@string/name"
+            style="@style/Theme.GithubApp.Detail.Header"/>
+        <TextView
+            android:id="@+id/tv_detail_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_detail_nama"
+            android:textSize="13sp"
+            android:textStyle="italic"
+            android:hint="@string/username"
+            style="@style/Theme.GithubApp.Detail.Header"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/tv_detail_username"
+            android:layout_marginTop="@dimen/layout_top"
+            style="@style/Theme.GithubApp.Detail.Header">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/repository"
+                style="@style/Theme.GithubApp.ItemMiniText"/>
+            <TextView
+                android:id="@+id/tv_detail_repo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:hint="@string/value_test"
+                android:layout_marginEnd="@dimen/large_width"
+                style="@style/Theme.GithubApp.ItemMiniText.value"/>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/followers"
+                style="@style/Theme.GithubApp.ItemMiniText"/>
+            <TextView
+                android:id="@+id/tv_detail_followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/value_test"
+                android:layout_marginEnd="@dimen/large_width"
+                style="@style/Theme.GithubApp.ItemMiniText.value"/>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/following"
+                style="@style/Theme.GithubApp.ItemMiniText"/>
+            <TextView
+                android:id="@+id/tv_detail_following"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/value_test"
+                style="@style/Theme.GithubApp.ItemMiniText.value"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        app:tabTextColor="@android:color/white"/>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

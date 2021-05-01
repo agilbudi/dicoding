@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Github App</string>
+    <string name="menu_setting">Setting</string>
+    <string name="menu_exit">Exit</string>
+
+    <!--    TEST-->
+    <string name="bio">When do you think people die? When they are shot through the heart by the bullet of a pistol? No. When they are ravaged by an incurable disease? No. When they drink a soup made from a poisonous mushroom!? No! It’s when… they are FORGOTTEN.</string>
+    <string name="name">Agil Budi Prasetyo</string>
+    <string name="username">Username</string>
+    <string name="repository">Repository:</string>
+    <string name="value_test">1000</string>
+    <string name="followers">Followers:</string>
+    <string name="following">Following:</string>
+    <string name="search_hint">Cari User</string>
+
+    <string-array name="data_dummy_username">
+        <item>mojombo</item>
+        <item>defunkt</item>
+        <item>pjhyett</item>
+    </string-array>
+    <string-array name="data_dummy_foto">
+        <item>https://avatars.githubusercontent.com/u/1?v=4</item>
+        <item>https://avatars.githubusercontent.com/u/2?v=4</item>
+        <item>https://avatars.githubusercontent.com/u/3?v=4</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
