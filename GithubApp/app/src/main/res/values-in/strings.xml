@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Github App</string>
+    <string name="menu_setting" translatable="false">Pengaturan Bahasa</string>
+    <string name="menu_exit" translatable="false">Keluar</string>
+    <string name="name" translatable="false">#nama</string>
+    <string name="username" translatable="false">#namapengguna</string>
+    <string name="repository" translatable="false">Repository:</string>
+    <string name="followers" translatable="false">Pengikut:</string>
+    <string name="following" translatable="false">Mengikuti:</string>
+    <string name="search_hint" translatable="false">Cari Pengguna</string>
+    <string name="tab_followers" translatable="false">Pengikut</string>
+    <string name="tab_following" translatable="false">Mengikuti</string>
+    <string name="value_test">1000</string>
+    <string name="theme" translatable="false">Tema</string>
+    <string name="light" translatable="false">Terang</string>
+    <string name="dark" translatable="false">Gelap</string>
+</resources>

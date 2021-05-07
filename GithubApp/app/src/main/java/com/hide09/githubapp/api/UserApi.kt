@@ -3,7 +3,6 @@ package com.hide09.githubapp.api
 import com.hide09.githubapp.model.User
 import com.hide09.githubapp.model.UserDetail
 import com.hide09.githubapp.model.UserSearch
-import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -26,9 +25,9 @@ interface UserApi {
 
     @GET("users/{username}/followers")
     @Headers("Authorization: token <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>")
-    fun getFollowersUsers(@Query("username") username: String): Call<User>
+    fun getFollowersUsers(@Path("username") username: String): Call<ArrayList<User>>
 
     @GET("users/{username}/following")
     @Headers("Authorization: token <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>")
-    fun getFollowingUsers(@Query("username") username: String): Call<User>
+    fun getFollowingUsers(@Path("username") username: String): Call<ArrayList<User>>
 }

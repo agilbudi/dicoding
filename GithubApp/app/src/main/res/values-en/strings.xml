@@ -1,19 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Github App</string>
     <string name="menu_setting" translatable="false">Setting Language</string>
     <string name="menu_exit" translatable="false">Exit</string>
-
     <string name="name" translatable="false">#name</string>
     <string name="username" translatable="false">#username</string>
-    <string name="repository">Repository:</string>
+    <string name="repository" translatable="false">Repository:</string>
     <string name="value_test">1000</string>
     <string name="followers" translatable="false">Followers:</string>
     <string name="following" translatable="false">Following:</string>
     <string name="search_hint" translatable="false">Search User</string>
-
     <string name="tab_followers" translatable="false">Followers</string>
     <string name="tab_following" translatable="false">Following</string>
-    <string name="theme" translatable="false">Theme</string>
-    <string name="light" translatable="false">Light</string>
-    <string name="dark" translatable="false">Dark</string>
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
 </resources>

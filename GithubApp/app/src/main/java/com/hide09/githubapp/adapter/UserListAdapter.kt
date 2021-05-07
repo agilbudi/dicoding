@@ -31,9 +31,6 @@ class UserListAdapter: RecyclerView.Adapter<UserListAdapter.ListViewHolder>() {
                     .apply(RequestOptions().centerCrop())
                     .into(civUser)
                 tvItemName.text = user.username
-//                itemView.setOnClickListener { itemView ->
-//                    Toast.makeText(itemView.context, user.username, Toast.LENGTH_SHORT).show()
-//                }
                 itemView.setOnClickListener { onItemClickCallback?.onItemClicked(user) }
             }
         }

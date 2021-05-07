@@ -3,26 +3,25 @@ package com.hide09.githubapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hide09.githubapp.adapter.UserListAdapter
 import com.hide09.githubapp.databinding.ActivityMainBinding
 import com.hide09.githubapp.model.User
-import com.hide09.githubapp.viewmodel.UserDetailViewModel
 import com.hide09.githubapp.viewmodel.UserSearchViewModel
 import com.hide09.githubapp.viewmodel.UserViewModel
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
-    lateinit var userVM: UserViewModel
-    lateinit var userSearchVM: UserSearchViewModel
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var userVM: UserViewModel
+    private lateinit var userSearchVM: UserSearchViewModel
     private val userAdapter = UserListAdapter()
-
-    companion object{
-        private val TAG = MainActivity::class.java.simpleName
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +59,21 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_setting -> startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+            R.id.menu_theme_dark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            R.id.menu_theme_light -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            R.id.menu_exit -> finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun showSearch(username: String?) {
         showLoading(true)
         userSearchVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserSearchViewModel::class.java)
@@ -88,7 +102,6 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(DetailUserActivity.EXTRA_USER, user.username)
         startActivity(intent)
     }
-
 
     private fun showLoading(status: Boolean) {
         if (status){

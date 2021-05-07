@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?attr/colorPrimaryVariant"
     tools:context=".DetailUserActivity">
-
     <RelativeLayout
         android:id="@+id/rl_detail"
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:id="@+id/tv_detail_nama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/layout_top"
+            android:layout_marginTop="@dimen/item_start"
             android:layout_below="@+id/civ_detail_user"
             android:textSize="18sp"
             android:hint="@string/name"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_below="@+id/tv_detail_username"
-            android:layout_marginTop="@dimen/layout_top"
+            android:layout_marginTop="@dimen/item_start"
             style="@style/Theme.GithubApp.Detail.Header">
 
             <TextView
@@ -107,9 +107,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        app:tabTextColor="@android:color/white"/>
+        app:tabIndicatorHeight="3dp"
+        app:tabTextColor="?attr/colorOnSecondary"
+        app:tabIndicatorColor="?attr/colorSecondaryVariant"
+        app:tabSelectedTextColor="?attr/colorSecondaryVariant"/>
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

@@ -12,14 +12,13 @@ import retrofit2.Response
 
 class UserDetailViewModel: ViewModel() {
     private val userService = UserService
-    val userDetail = MutableLiveData<UserDetail>()
+    private val userDetail = MutableLiveData<UserDetail>()
 
     companion object{
         private val TAG = UserDetailViewModel::class.java.simpleName
     }
 
     fun setDataUserDetail(username: String?){
-        Log.e(TAG, username.toString())
         userService.getUserDetail(username!!).enqueue(object : Callback<UserDetail>{
             override fun onResponse(call: Call<UserDetail>, response: Response<UserDetail>) {
                 if (response.isSuccessful){

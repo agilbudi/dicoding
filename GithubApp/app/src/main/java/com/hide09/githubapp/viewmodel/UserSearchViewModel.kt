@@ -19,8 +19,8 @@ class UserSearchViewModel: ViewModel() {
         private val TAG = UserSearchViewModel::class.java.simpleName
     }
 
-    fun setUserSearch(urlusername: String?) {
-        userService.getUserSearch(urlusername!!).enqueue(object : Callback<UserSearch>{
+    fun setUserSearch(username: String?) {
+        userService.getUserSearch(username!!).enqueue(object : Callback<UserSearch>{
             override fun onResponse(call: Call<UserSearch>, response: Response<UserSearch>) {
                 val responseUserSearch = response.body()?.items
                 listUsersSearch.value = responseUserSearch
