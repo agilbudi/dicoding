@@ -2,6 +2,7 @@ package com.hide09.githubapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -47,6 +48,7 @@ class DetailUserActivity : AppCompatActivity() {
     }
 
     private fun setData(username: String?) {
+        showLoading(true)
         userDetailVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailViewModel::class.java)
         userDetailVM.setDataUserDetail(username)
         userDetailVM.getUserDetail().observe(this, {items ->
@@ -65,7 +67,16 @@ class DetailUserActivity : AppCompatActivity() {
                 tvDetailFollowers.text = items.detailFollowers
                 supportActionBar?.title = items.detailNama
             }
+            showLoading(false)
         })
+    }
+
+    private fun showLoading(status: Boolean) {
+        if (status) {
+            binding.progressBarDetail.visibility = View.VISIBLE
+        }else{
+            binding.progressBarDetail.visibility = View.GONE
+        }
     }
 
 }

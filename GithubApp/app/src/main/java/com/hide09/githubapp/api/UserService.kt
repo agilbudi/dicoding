@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object UserService {
-    private const val BASE_URL = "http://api.github.com/"
+    private const val BASE_URL = "https://api.github.com/"
     private val api: UserApi by lazy {
         val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)

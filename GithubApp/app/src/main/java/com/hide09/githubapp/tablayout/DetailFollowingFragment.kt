@@ -46,13 +46,7 @@ class DetailFollowingFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = detailAdapter
         }
-        detailTabVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailTabViewModel::class.java)
-        detailTabVM.setUserFollowing(username!!)
-        detailTabVM.getUserFollowing().observe(activity!!, { items ->
-            if (items != null){
-                detailAdapter.updateUsers(items)
-            }
-        })
+        showData(username)
 
         detailAdapter.setOnItemClickCallback(object : UserListAdapter.OnItemClickCallback{
             override fun onItemClicked(data: User) {
@@ -60,6 +54,27 @@ class DetailFollowingFragment : Fragment() {
             }
         })
     }
+
+    private fun showData(username: String?) {
+        showLoading(true)
+        detailTabVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailTabViewModel::class.java)
+        detailTabVM.setUserFollowing(username!!)
+        detailTabVM.getUserFollowing().observe(activity!!, { items ->
+            if (items != null){
+                detailAdapter.updateUsers(items)
+            }
+            showLoading(false)
+        })
+    }
+
+    private fun showLoading(status: Boolean) {
+        if (status){
+            binding.progressBarFollowing.visibility = View.VISIBLE
+        }else{
+            binding.progressBarFollowing.visibility = View.GONE
+        }
+    }
+
 
     private fun itemSelected(data: User) {
         val intent = Intent(activity, DetailUserActivity::class.java)

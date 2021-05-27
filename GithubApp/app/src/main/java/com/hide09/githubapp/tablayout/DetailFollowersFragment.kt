@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hide09.githubapp.DetailUserActivity
 import com.hide09.githubapp.adapter.UserListAdapter
+import com.hide09.githubapp.databinding.ActivityDetailUserBinding
 import com.hide09.githubapp.databinding.FragmentDetailFollowersBinding
 import com.hide09.githubapp.model.User
 import com.hide09.githubapp.viewmodel.UserDetailTabViewModel
@@ -22,7 +23,6 @@ class DetailFollowersFragment : Fragment() {
     private val detailAdapter = UserListAdapter()
 
     companion object{
-        private val TAG = DetailFollowersFragment::class.java.simpleName
         private const val ARG_USERNAME = "username"
 
         fun newInstance(username: String): DetailFollowersFragment {
@@ -47,20 +47,34 @@ class DetailFollowersFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = detailAdapter
+            showLoading(true)
         }
-        detailTabVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailTabViewModel::class.java)
-        detailTabVM.setUserFollowers(username!!)
-        detailTabVM.getUserFollowers().observe(activity!!, { items ->
-            if (items != null){
-                detailAdapter.updateUsers(items)
-            }
-        })
+        showData(username)
 
         detailAdapter.setOnItemClickCallback(object : UserListAdapter.OnItemClickCallback{
             override fun onItemClicked(data: User) {
                 itemSelected(data)
             }
         })
+    }
+
+    private fun showData(username: String?) {
+        detailTabVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailTabViewModel::class.java)
+        detailTabVM.setUserFollowers(username!!)
+        detailTabVM.getUserFollowers().observe(activity!!, { items ->
+            if (items != null){
+                detailAdapter.updateUsers(items)
+            }
+            showLoading(false)
+        })
+    }
+
+    private fun showLoading(status: Boolean) {
+        if (status) {
+          binding.progressBarFollowers.visibility = View.VISIBLE
+        }else{
+            binding.progressBarFollowers.visibility = View.GONE
+        }
     }
 
     private fun itemSelected(data: User) {

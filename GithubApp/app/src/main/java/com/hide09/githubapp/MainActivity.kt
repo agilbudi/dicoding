@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -16,6 +17,7 @@ import com.hide09.githubapp.databinding.ActivityMainBinding
 import com.hide09.githubapp.model.User
 import com.hide09.githubapp.viewmodel.UserSearchViewModel
 import com.hide09.githubapp.viewmodel.UserViewModel
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -43,10 +45,16 @@ class MainActivity : AppCompatActivity() {
                     return true
                 }
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    if (newText.isNullOrEmpty()){
-                        showAllUsers()
-                    }else{
-                        showSearch(newText)
+                    runBlocking {
+                        launch {
+                            delay(300)
+                            Log.d(MainActivity::class.java.simpleName, newText.toString())
+                            if (newText.isNullOrEmpty()){
+                                showAllUsers()
+                            }else{
+                                showSearch(newText)
+                            }
+                        }
                     }
                     return false
                 }
@@ -77,12 +85,14 @@ class MainActivity : AppCompatActivity() {
     private fun showSearch(username: String?) {
         showLoading(true)
         userSearchVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserSearchViewModel::class.java)
-        userSearchVM.setUserSearch(username)
+        userSearchVM.setUserSearch(username!!)
         userSearchVM.getUserSearch().observe(this, {userItems ->
-        if (userItems != null){
-            userAdapter.updateUsers(userItems)
-            showLoading(false)
-        }
+            if (userItems != null){
+                userAdapter.updateUsers(userItems)
+                showLoading(false)
+            }else{
+                Log.d(MainActivity::class.java.simpleName, "userItems = " + userItems.toString())
+            }
         })
     }
 

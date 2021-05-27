@@ -10,24 +10,27 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface UserApi {
+    companion object{
+        private const val token = "Authorization: token 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"
+    }
 
     @GET("users")
-    @Headers("Authorization: token <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>")
+    @Headers(token)
     fun getUsers(): Call<ArrayList<User>>
 
     @GET("search/users")
-    @Headers("Authorization: token <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>")
+    @Headers(token)
     fun getSearchUsers(@Query("q") username: String): Call<UserSearch>
 
     @GET("users/{username}")
-    @Headers("Authorization: token <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>")
+    @Headers(token)
     fun getDetailUsers(@Path("username") username: String): Call<UserDetail>
 
     @GET("users/{username}/followers")
-    @Headers("Authorization: token <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>")
+    @Headers(token)
     fun getFollowersUsers(@Path("username") username: String): Call<ArrayList<User>>
 
     @GET("users/{username}/following")
-    @Headers("Authorization: token <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>")
+    @Headers(token)
     fun getFollowingUsers(@Path("username") username: String): Call<ArrayList<User>>
 }

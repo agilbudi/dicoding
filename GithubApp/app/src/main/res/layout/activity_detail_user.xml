@@ -100,6 +100,12 @@
                 android:hint="@string/value_test"
                 style="@style/Theme.GithubApp.ItemMiniText.value"/>
         </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progressBar_detail"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
 
     <com.google.android.material.tabs.TabLayout
@@ -111,9 +117,9 @@
         app:tabTextColor="?attr/colorOnSecondary"
         app:tabIndicatorColor="?attr/colorSecondaryVariant"
         app:tabSelectedTextColor="?attr/colorSecondaryVariant"/>
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 </LinearLayout>
