@@ -22,7 +22,7 @@ class UserViewModel: ViewModel() {
         userService.getUsers().enqueue( object : Callback<ArrayList<User>>{
             override fun onResponse(call: Call<ArrayList<User>>, response: Response<ArrayList<User>>) {
                 val responseUsers = response.body()
-                userList.value = responseUsers
+                userList.postValue(responseUsers)
             }
 
             override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {

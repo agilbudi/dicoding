@@ -23,7 +23,7 @@ class UserDetailTabViewModel: ViewModel() {
         userService.getUserFollowing(username).enqueue(object : Callback<ArrayList<User>>{
             override fun onResponse(call: Call<ArrayList<User>>, response: Response<ArrayList<User>>) {
                 val responseUsers = response.body()
-                userFollowingList.value = responseUsers
+                userFollowingList.postValue(responseUsers)
             }
 
             override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {
@@ -36,7 +36,7 @@ class UserDetailTabViewModel: ViewModel() {
         userService.getUserFollowers(username).enqueue(object : Callback<ArrayList<User>>{
             override fun onResponse(call: Call<ArrayList<User>>, response: Response<ArrayList<User>>) {
                 val responseUsers = response.body()
-                userFollowerList.value = responseUsers
+                userFollowerList.postValue(responseUsers)
             }
 
             override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {

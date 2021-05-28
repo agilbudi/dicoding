@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.text.TextUtils
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -25,11 +26,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userSearchVM: UserSearchViewModel
     private val userAdapter = UserListAdapter()
 
+    companion object{
+        private val TAG = MainActivity::class.java.simpleName
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val searchView = binding.svSearch
+        userVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
+        userSearchVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserSearchViewModel::class.java)
 
         showLoading(true)
         binding.rvUsers.setHasFixedSize(true)
@@ -37,28 +45,38 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             adapter = userAdapter
         }
-        showAllUsers()
         searchView.queryHint = resources.getString(R.string.search_hint)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    showSearch(query)
+                    userSearchVM.setUserSearch(query!!)
+                    searchView.clearFocus()
                     return true
                 }
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    runBlocking {
-                        launch {
-                            delay(300)
-                            Log.d(MainActivity::class.java.simpleName, newText.toString())
-                            if (newText.isNullOrEmpty()){
-                                showAllUsers()
-                            }else{
-                                showSearch(newText)
+                override fun onQueryTextChange(newText: String?): Boolean = runBlocking{
+                        if (TextUtils.isEmpty(newText)){
+                            showAllUsers()
+                        }else{
+                            showLoading(true)
+                            launch {
+                                delay(300)
+                                userSearchVM.setUserSearch(newText)
                             }
-                        }
                     }
-                    return false
+                    return@runBlocking false
                 }
             })
+        //recyclerviewShow
+        userSearchVM.getUserSearch().observe(this@MainActivity, {userItems ->
+            if (userItems != null){
+                userAdapter.updateUsers(userItems)
+                showLoading(false)
+            }else{
+                Log.e(TAG, "userItems is $userItems")
+            }
+        })
+        if(userSearchVM.getUserSearch().value == null){
+            showAllUsers()
+        }
 
         userAdapter.setOnItemClickCallback(object : UserListAdapter.OnItemClickCallback{
             override fun onItemClicked(data: User) {
@@ -82,22 +100,7 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun showSearch(username: String?) {
-        showLoading(true)
-        userSearchVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserSearchViewModel::class.java)
-        userSearchVM.setUserSearch(username!!)
-        userSearchVM.getUserSearch().observe(this, {userItems ->
-            if (userItems != null){
-                userAdapter.updateUsers(userItems)
-                showLoading(false)
-            }else{
-                Log.d(MainActivity::class.java.simpleName, "userItems = " + userItems.toString())
-            }
-        })
-    }
-
     private fun showAllUsers() {
-        userVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
         userVM.setUsers()
         userVM.getUsers().observe(this, {userItems ->
             if (userItems != null){

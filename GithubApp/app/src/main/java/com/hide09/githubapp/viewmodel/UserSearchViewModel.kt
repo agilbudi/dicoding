@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.hide09.githubapp.api.UserService
 import com.hide09.githubapp.model.User
 import com.hide09.githubapp.model.UserSearch
-import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,18 +19,16 @@ class UserSearchViewModel: ViewModel() {
         private val TAG = UserSearchViewModel::class.java.simpleName
     }
 
-    fun setUserSearch(username: String) {
-            userService.getUserSearch(username).enqueue(object : Callback<UserSearch>{
-                override fun onResponse(call: Call<UserSearch>, response: Response<UserSearch>) {
-                    val responseUserSearch = response.body()?.items
-                    listUsersSearch.value = responseUserSearch
-                }
-
-                override fun onFailure(call: Call<UserSearch>, t: Throwable) {
-                    Log.e(TAG, t.message.toString())
-                }
-
-            })
+    fun setUserSearch(username: String?){
+        userService.getUserSearch(username!!).enqueue(object : Callback<UserSearch> {
+            override fun onResponse(call: Call<UserSearch>, response: Response<UserSearch>) {
+                val responseUserSearch = response.body()?.items
+                listUsersSearch.postValue(responseUserSearch)
+            }
+            override fun onFailure(call: Call<UserSearch>, t: Throwable) {
+                Log.e(TAG, t.message.toString())
+            }
+        })
     }
     fun getUserSearch(): LiveData<ArrayList<User>>{
         return listUsersSearch

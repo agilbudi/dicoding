@@ -12,25 +12,26 @@ import retrofit2.http.Query
 interface UserApi {
     companion object{
         private const val token = "Authorization: token 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"
+        private const val token1 = "Authorization: token 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"
     }
 
     @GET("users")
-    @Headers(token)
+    @Headers(token1)
     fun getUsers(): Call<ArrayList<User>>
 
     @GET("search/users")
-    @Headers(token)
+    @Headers(token1)
     fun getSearchUsers(@Query("q") username: String): Call<UserSearch>
 
     @GET("users/{username}")
-    @Headers(token)
+    @Headers(token1)
     fun getDetailUsers(@Path("username") username: String): Call<UserDetail>
 
     @GET("users/{username}/followers")
-    @Headers(token)
+    @Headers(token1)
     fun getFollowersUsers(@Path("username") username: String): Call<ArrayList<User>>
 
     @GET("users/{username}/following")
-    @Headers(token)
+    @Headers(token1)
     fun getFollowingUsers(@Path("username") username: String): Call<ArrayList<User>>
 }

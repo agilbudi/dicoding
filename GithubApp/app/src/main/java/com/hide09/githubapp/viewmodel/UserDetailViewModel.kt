@@ -23,7 +23,7 @@ class UserDetailViewModel: ViewModel() {
             override fun onResponse(call: Call<UserDetail>, response: Response<UserDetail>) {
                 if (response.isSuccessful){
                     val responseUsers = response.body()
-                    userDetail.value = responseUsers
+                    userDetail.postValue(responseUsers)
                 }
             }
             override fun onFailure(call: Call<UserDetail>, t: Throwable) {
