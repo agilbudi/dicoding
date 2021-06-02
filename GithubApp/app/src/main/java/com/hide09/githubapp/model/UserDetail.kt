@@ -9,15 +9,15 @@ data class UserDetail(
     @SerializedName("login")
     val detailUserName: String?,
     @SerializedName("name")
-    val detailNama: String?,
+    val detailName: String?,
     @SerializedName("avatar_url")
-    val detailFoto: String?,
+    val detailPhoto: String?,
     @SerializedName("public_repos")
     val detailRepo: String?,
     @SerializedName("followers")
     val detailFollowers: String?,
     @SerializedName("following")
-    val detailFollowing: String?
+    val detailFollowings: String?
 ): Parcelable{
     constructor(): this("","","","","","")
 }

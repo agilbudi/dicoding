@@ -10,7 +10,7 @@ data class User(
         @SerializedName("login")
     val username: String?,
         @SerializedName("avatar_url")
-    val foto: String?
+    val photo: String?
 ) : Parcelable{
     constructor(): this("","")
 }

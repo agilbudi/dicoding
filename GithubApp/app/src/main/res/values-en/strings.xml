@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Github App</string>
-    <string name="menu_setting" translatable="false">Setting Language</string>
+    <string name="menu_language" translatable="false">Language</string>
     <string name="menu_exit" translatable="false">Exit</string>
     <string name="name" translatable="false">#name</string>
     <string name="username" translatable="false">#username</string>
@@ -15,4 +15,10 @@
     <string name="theme">Theme</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
+    <string name="favorite_users">Favorite User</string>
+    <string name="add_favorite">add to Favorite now</string>
+    <string name="add_favorite_failed">failed to add Favorite</string>
+    <string name="delete_favorite_failed">delete failed</string>
+    <string name="delete_favorite">deleted from Favorite</string>
+    <string name="menu_setting">Setting</string>
 </resources>

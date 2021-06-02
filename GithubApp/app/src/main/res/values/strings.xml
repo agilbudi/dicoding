@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Github App</string>
-    <string name="menu_setting" translatable="false">Setting Language</string>
+    <string name="menu_language" translatable="false">Language</string>
     <string name="menu_exit" translatable="false">Exit</string>
 
     <string name="name" translatable="false">#name</string>
@@ -16,4 +16,19 @@
     <string name="theme" translatable="false">Theme</string>
     <string name="light" translatable="false">Light</string>
     <string name="dark" translatable="false">Dark</string>
+    <string name="favorite_users">Favorite Users</string>
+    <string name="add_favorite">add to Favorite now</string>
+    <string name="add_favorite_failed">failed to add Favorite</string>
+    <string name="delete_favorite">deleted from Favorite</string>
+    <string name="delete_favorite_failed">delete failed</string>
+    <string name="menu_setting">Setting</string>
+
+    <array name="entries_list_theme">
+        <item>Light</item>
+        <item>Dark</item>
+    </array>
+    <array name="entry_values_list_theme">
+        <item>MODE_NIGHT_NO</item>
+        <item>MODE_NIGHT_YES</item>
+    </array>
 </resources>

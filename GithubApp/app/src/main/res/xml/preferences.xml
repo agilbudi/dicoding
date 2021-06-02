@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Notification">
+        <SwitchPreference
+            android:key="reminder"
+            android:defaultValue="false"
+            android:title="Reminder at 9.00 AM"
+            android:icon="@drawable/ic_notification_24"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Appearance">
+        <ListPreference
+            android:title="Theme"
+            android:icon="@drawable/ic_favorite_24"
+            android:entries="@array/entries_list_theme"
+            android:entryValues="@array/entry_values_list_theme"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="General">
+        <Preference
+            android:title="@string/menu_language">
+            <intent android:action="android.intent.action.LOCALE_CHANGED"/>
+        </Preference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

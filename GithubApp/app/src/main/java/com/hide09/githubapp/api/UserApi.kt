@@ -11,8 +11,7 @@ import retrofit2.http.Query
 
 interface UserApi {
     companion object{
-        private const val token = "Authorization: token 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"
-        private const val token1 = "Authorization: token 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"
+        private const val token1 = "Authorization: token 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"
     }
 
     @GET("users")

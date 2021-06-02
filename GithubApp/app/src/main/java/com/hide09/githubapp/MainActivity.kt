@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         private val TAG = MainActivity::class.java.simpleName
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -65,8 +64,7 @@ class MainActivity : AppCompatActivity() {
                     return@runBlocking false
                 }
             })
-        //recyclerviewShow
-        userSearchVM.getUserSearch().observe(this@MainActivity, {userItems ->
+        userSearchVM.getUserSearch().observe(this, {userItems ->
             if (userItems != null){
                 userAdapter.updateUsers(userItems)
                 showLoading(false)
@@ -92,10 +90,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.menu_setting -> startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+            R.id.menu_setting -> {
+                supportFragmentManager.beginTransaction().add(R.id.setting_holder, MyPreferenceFragment()).commit()
+            }
+            R.id.menu_language -> startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
             R.id.menu_theme_dark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             R.id.menu_theme_light -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             R.id.menu_exit -> finish()
+            R.id.menu_favorite -> startActivity(Intent(this, FavoriteActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }

@@ -26,7 +26,7 @@ class UserListAdapter: RecyclerView.Adapter<UserListAdapter.ListViewHolder>() {
         fun bind(user: User) {
             with(binding){
                 Glide.with(itemView.context)
-                    .load(user.foto)
+                    .load(user.photo)
                     .apply(RequestOptions().override(90,90))
                     .apply(RequestOptions().centerCrop())
                     .into(civUser)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Github App</string>
-    <string name="menu_setting" translatable="false">Pengaturan Bahasa</string>
+    <string name="menu_language" translatable="false">Bahasa</string>
     <string name="menu_exit" translatable="false">Keluar</string>
     <string name="name" translatable="false">#nama</string>
     <string name="username" translatable="false">#namapengguna</string>
@@ -15,4 +15,10 @@
     <string name="theme" translatable="false">Tema</string>
     <string name="light" translatable="false">Terang</string>
     <string name="dark" translatable="false">Gelap</string>
+    <string name="favorite_users">Pengguna Favorit</string>
+    <string name="add_favorite">ditambahkan ke Favorit sekarang</string>
+    <string name="add_favorite_failed">gagal menambahkan ke Favorit</string>
+    <string name="delete_favorite">dihapus dari Favorit</string>
+    <string name="delete_favorite_failed">gagal dihapus</string>
+    <string name="menu_setting">Pengaturan</string>
 </resources>

@@ -1,8 +1,15 @@
 package com.hide09.githubapp
 
+import android.content.ContentValues
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -10,11 +17,18 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.hide09.githubapp.databinding.ActivityDetailUserBinding
+import com.hide09.githubapp.db.DatabaseContract
+import com.hide09.githubapp.db.FavoriteHelper
+import com.hide09.githubapp.helper.MappingHelper
 import com.hide09.githubapp.viewmodel.UserDetailViewModel
+import kotlinx.coroutines.*
 
 class DetailUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailUserBinding
-    lateinit var userDetailVM: UserDetailViewModel
+    private lateinit var userDetailVM: UserDetailViewModel
+    private lateinit var favoriteHelper: FavoriteHelper
+    private var statusFavorite: Boolean = false
+    private val columns = DatabaseContract.FavoriteColumns
 
     companion object{
         const val EXTRA_USER = "extra_user"
@@ -29,43 +43,102 @@ class DetailUserActivity : AppCompatActivity() {
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        userDetailVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailViewModel::class.java)
         val sectionPagerAdapter = SectionPagerAdapter(this)
         val viewPager: ViewPager2 = binding.viewPager
         val tabs: TabLayout = binding.tabLayout
         val username = intent.getStringExtra(EXTRA_USER)
-        setData(username)
-        sectionPagerAdapter.username = username
 
-        viewPager.adapter = sectionPagerAdapter
-        TabLayoutMediator(tabs, viewPager){tab, position->
-            tab.text = resources.getString(TAB_TITLES[position])
-        }.attach()
-        supportActionBar?.elevation = 0f
-    }
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
+        GlobalScope.launch(Dispatchers.Main){
+            favoriteHelper = FavoriteHelper.getInstance(applicationContext)
+            launch { setData(username) }
+            sectionPagerAdapter.username = username
+
+            //di sini cek status favorite di database
+            launch(Dispatchers.IO){ checkFavorite(username) }
+
+            viewPager.adapter = sectionPagerAdapter
+            TabLayoutMediator(tabs, viewPager){tab, position->
+                tab.text = resources.getString(TAB_TITLES[position])
+            }.attach()
+            supportActionBar?.elevation = 0f
+
+            binding.fabAdd.setOnClickListener {
+                favoriteHelper.open()
+                if (!statusFavorite){ // jika true maka hapus dari database
+                    getFavorite()
+                }else{
+                    getUnFavorite(username)
+                }
+                setStatusFavorite(statusFavorite)
+                favoriteHelper.close()
+            }
+        }
     }
 
-    private fun setData(username: String?) {
+    private fun getUnFavorite(username: String?) {
+        val result =  favoriteHelper.deleteByUsername(username.toString())
+        if (result > 0) {
+            statusFavorite = !statusFavorite
+            Toast.makeText(this, "${binding.tvDetailName.text} ${getString(R.string.delete_favorite)}", Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(this, "${binding.tvDetailName.text} ${getString(R.string.delete_favorite_failed)}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun getFavorite() {
+        val values = ContentValues()
+        userDetailVM.getUserDetail().observe(this,
+                { items ->
+                    values.put(columns.COLUMN_USERNAME, items.detailUserName)
+                    values.put(columns.COLUMN_PHOTO, items.detailPhoto)
+                })
+        val result = favoriteHelper.insert(values)
+        if (result > 0){
+            statusFavorite = !statusFavorite
+            Toast.makeText(this, "${binding.tvDetailName.text} ${getString(R.string.add_favorite)}", Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(this, "${binding.tvDetailName.text} ${getString(R.string.add_favorite_failed)}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun checkFavorite(username: String?) {
+        favoriteHelper.open()
+        val cursor = favoriteHelper.queryByUsername(username.toString())
+        val data = MappingHelper.mapCursorToArrayList(cursor)
+        statusFavorite = data.size != 0
+        favoriteHelper.close()
+
+        setStatusFavorite(statusFavorite)
+    }
+
+    private fun setStatusFavorite(statusFavorite: Boolean) {
+        if(statusFavorite){
+            binding.fabAdd.setImageResource(R.drawable.ic_favorite_24)
+        }else{
+            binding.fabAdd.setImageResource(R.drawable.ic_unfavorite_24)
+        }
+    }
+
+    private suspend fun setData(username: String?) {
         showLoading(true)
-        userDetailVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailViewModel::class.java)
         userDetailVM.setDataUserDetail(username)
+        delay(500)
         userDetailVM.getUserDetail().observe(this, {items ->
             with(binding){
                 Glide.with(this@DetailUserActivity)
-                        .load(items.detailFoto)
+                        .load(items.detailPhoto)
                         .apply {
                             RequestOptions().centerCrop()
                             RequestOptions().override(130, 130)
                         }
                         .into(civDetailUser)
                 tvDetailUsername.text = items.detailUserName
-                tvDetailNama.text = items.detailNama
+                tvDetailName.text = items.detailName
                 tvDetailRepo.text = items.detailRepo
-                tvDetailFollowing.text = items.detailFollowing
+                tvDetailFollowings.text = items.detailFollowings
                 tvDetailFollowers.text = items.detailFollowers
-                supportActionBar?.title = items.detailNama
+                supportActionBar?.title = items.detailName
             }
             showLoading(false)
         })
@@ -78,5 +151,24 @@ class DetailUserActivity : AppCompatActivity() {
             binding.progressBarDetail.visibility = View.GONE
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_secondary, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_language -> startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+            R.id.menu_theme_dark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            R.id.menu_theme_light -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        favoriteHelper.close()
+        return true
+    }
+
 
 }
