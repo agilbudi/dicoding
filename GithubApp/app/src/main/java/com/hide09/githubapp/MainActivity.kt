@@ -1,6 +1,7 @@
 package com.hide09.githubapp
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
@@ -12,6 +13,7 @@ import android.view.View
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hide09.githubapp.adapter.UserListAdapter
 import com.hide09.githubapp.databinding.ActivityMainBinding
@@ -34,36 +36,39 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val searchView = binding.svSearch
         userVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
         userSearchVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserSearchViewModel::class.java)
 
+        mySetting(prefs)
         showLoading(true)
-        binding.rvUsers.setHasFixedSize(true)
         binding.rvUsers.apply {
+            setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = userAdapter
         }
+
         searchView.queryHint = resources.getString(R.string.search_hint)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    userSearchVM.setUserSearch(query!!)
-                    searchView.clearFocus()
-                    return true
-                }
-                override fun onQueryTextChange(newText: String?): Boolean = runBlocking{
-                        if (TextUtils.isEmpty(newText)){
-                            showAllUsers()
-                        }else{
-                            showLoading(true)
-                            launch {
-                                delay(300)
-                                userSearchVM.setUserSearch(newText)
-                            }
+            override fun onQueryTextSubmit(query: String): Boolean {
+                userSearchVM.setUserSearch(query)
+                searchView.clearFocus()
+                return true
+            }
+            override fun onQueryTextChange(newText: String): Boolean = runBlocking{
+                if (TextUtils.isEmpty(newText)){
+                    showAllUsers()
+                }else{
+                    showLoading(true)
+                    launch {
+                        delay(300)
+                        userSearchVM.setUserSearch(newText)
                     }
-                    return@runBlocking false
                 }
-            })
+                return@runBlocking false
+            }
+        })
         userSearchVM.getUserSearch().observe(this, {userItems ->
             if (userItems != null){
                 userAdapter.updateUsers(userItems)
@@ -83,6 +88,15 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun mySetting(prefs: SharedPreferences) {
+        val keyTheme = resources.getString(R.string.key_theme)
+        val theme = prefs.getString(keyTheme, "1")
+        when(theme?.toInt()){
+            1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            2 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -90,12 +104,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.menu_setting -> {
-                supportFragmentManager.beginTransaction().add(R.id.setting_holder, MyPreferenceFragment()).commit()
-            }
+            R.id.menu_setting -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.menu_language -> startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
-            R.id.menu_theme_dark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            R.id.menu_theme_light -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             R.id.menu_exit -> finish()
             R.id.menu_favorite -> startActivity(Intent(this, FavoriteActivity::class.java))
         }

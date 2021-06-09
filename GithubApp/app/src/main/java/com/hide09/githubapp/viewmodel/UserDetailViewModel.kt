@@ -18,12 +18,14 @@ class UserDetailViewModel: ViewModel() {
         private val TAG = UserDetailViewModel::class.java.simpleName
     }
 
-    fun setDataUserDetail(username: String?){
-        userService.getUserDetail(username!!).enqueue(object : Callback<UserDetail>{
+    fun setDataUserDetail(username: String){
+        userService.getUserDetail(username).enqueue(object : Callback<UserDetail>{
             override fun onResponse(call: Call<UserDetail>, response: Response<UserDetail>) {
                 if (response.isSuccessful){
                     val responseUsers = response.body()
                     userDetail.postValue(responseUsers)
+                }else{
+                    Log.e(TAG,"Response Failed")
                 }
             }
             override fun onFailure(call: Call<UserDetail>, t: Throwable) {

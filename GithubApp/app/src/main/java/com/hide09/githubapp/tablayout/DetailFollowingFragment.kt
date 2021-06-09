@@ -59,7 +59,7 @@ class DetailFollowingFragment : Fragment() {
         showLoading(true)
         detailTabVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailTabViewModel::class.java)
         detailTabVM.setUserFollowing(username!!)
-        detailTabVM.getUserFollowing().observe(activity!!, { items ->
+        detailTabVM.getUserFollowing().observe(requireActivity(), { items ->
             if (items != null){
                 detailAdapter.updateUsers(items)
             }

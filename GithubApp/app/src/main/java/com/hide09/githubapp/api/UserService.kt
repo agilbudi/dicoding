@@ -1,10 +1,8 @@
 package com.hide09.githubapp.api
 
-import android.util.Log
 import com.hide09.githubapp.model.User
 import com.hide09.githubapp.model.UserDetail
 import com.hide09.githubapp.model.UserSearch
-import kotlinx.coroutines.delay
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

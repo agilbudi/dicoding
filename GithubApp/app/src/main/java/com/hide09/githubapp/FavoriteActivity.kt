@@ -1,32 +1,40 @@
 package com.hide09.githubapp
 
 import android.content.Intent
+import android.database.ContentObserver
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
 import android.provider.Settings
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatDelegate
+import android.widget.Toast
+import com.hide09.githubapp.db.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hide09.githubapp.adapter.UserListAdapter
+import com.hide09.githubapp.adapter.FavoriteListAdapter
 import com.hide09.githubapp.databinding.ActivityFavoriteBinding
 import com.hide09.githubapp.db.FavoriteHelper
+import com.hide09.githubapp.entity.Favorite
 import com.hide09.githubapp.helper.MappingHelper
-import com.hide09.githubapp.model.User
-import com.hide09.githubapp.viewmodel.UserViewModel
+import com.hide09.githubapp.viewmodel.UserFavoriteViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import java.util.ArrayList
+import java.lang.IllegalStateException
 
 class FavoriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFavoriteBinding
-    private lateinit var userVM: UserViewModel
+    private lateinit var favoriteVM: UserFavoriteViewModel
     private lateinit var favoriteHelper: FavoriteHelper
-    private val userAdapter = UserListAdapter()
+    private val userAdapter = FavoriteListAdapter()
+    companion object{
+        val TAG: String = FavoriteActivity::class.java.simpleName
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,28 +42,63 @@ class FavoriteActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.favorite_users)
-        userVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
+        favoriteVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserFavoriteViewModel::class.java)
+        favoriteHelper = FavoriteHelper.getInstance(applicationContext)
+        val handlerThread = HandlerThread("DataObserver")
+        handlerThread.start()
+        val handler = Handler(handlerThread.looper)
 
-        GlobalScope.launch(Dispatchers.Main) {
-            favoriteHelper = FavoriteHelper.getInstance(applicationContext)
-            showLoading(true)
-            binding.rvUsersFavorite.apply {
-                hasFixedSize()
-                layoutManager = LinearLayoutManager(context)
-                adapter = userAdapter
+        binding.rvUsersFavorite.apply {
+            hasFixedSize()
+            layoutManager = LinearLayoutManager(context)
+            adapter = userAdapter
+        }
+        val myObserver = object : ContentObserver(handler){
+            override fun onChange(selfChange: Boolean) {
+                showLoading(true)
+                loadData()
+                try {
+                    favoriteVM.getFavorite().observe(this@FavoriteActivity, { items ->
+                        if (items.size > 0) {
+                            userAdapter.updateFavorite(items)
+                        } else {
+                            showToast("Tidak ada user Favorit", false)
+                        }
+                    })
+                }catch (e: IllegalStateException){
+                    Log.e(TAG, e.message.toString())
+                }
+                showLoading(false)
             }
-            favoriteHelper.open()
-            val result = async(Dispatchers.IO){
-                val cursor = favoriteHelper.queryAll()
+
+        }
+        contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)
+        loadData()
+        favoriteVM.getFavorite().observe(this, {items ->
+            if (items != null){
+                userAdapter.updateFavorite(items)
+                showLoading(false)
+            }else{
+                showToast("Tidak ada user Favorit",true)
+            }
+        })
+
+        userAdapter.setOnItemClickCallback(object : FavoriteListAdapter.OnItemClickCallback{
+            override fun onItemClicked(data: Favorite) {
+                selectedItem(data)
+            }
+        })
+    }
+
+    private fun loadData() {
+        GlobalScope.launch(Dispatchers.Main) {
+            val deferred = async(Dispatchers.IO) {
+                favoriteHelper.open()
+                val cursor = contentResolver.query(CONTENT_URI, null, null, null, null, null)
                 MappingHelper.mapCursorToArrayList(cursor)
             }
-            val data = result.await()
-            showFavorite(data)
-            userAdapter.setOnItemClickCallback(object : UserListAdapter.OnItemClickCallback{
-                override fun onItemClicked(data: User) {
-                    selectedItem(data)
-                }
-            })
+            val data = deferred.await()
+            favoriteVM.setFavorite(data)
         }
     }
 
@@ -67,8 +110,7 @@ class FavoriteActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.menu_language -> startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
-            R.id.menu_theme_dark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            R.id.menu_theme_light -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            R.id.menu_setting -> startActivity(Intent(this, SettingsActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }
@@ -77,13 +119,8 @@ class FavoriteActivity : AppCompatActivity() {
         onBackPressed()
         return super.onSupportNavigateUp()
     }
-    private fun showFavorite(data: ArrayList<User>) {
-        userAdapter.updateUsers(data)
-        favoriteHelper.close()
-        showLoading(false)
-    }
 
-    private fun selectedItem(user: User){
+    private fun selectedItem(user: Favorite){
         val intent = Intent(this, DetailUserActivity::class.java)
         intent.putExtra(DetailUserActivity.EXTRA_USER, user.username)
         startActivity(intent)
@@ -96,6 +133,13 @@ class FavoriteActivity : AppCompatActivity() {
         }else{
             binding.progressBar.visibility = View.GONE
         }
+    }
 
+    private fun showToast( message: String?, durationLong: Boolean) {
+        if (durationLong) {
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        }else{
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
     }
 }

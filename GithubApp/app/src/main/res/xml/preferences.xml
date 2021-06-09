@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:iconSpaceReserved="false">
 
-    <PreferenceCategory
-        android:title="Notification">
+    <PreferenceCategory android:title="@string/notification">
         <SwitchPreference
-            android:key="reminder"
-            android:defaultValue="false"
-            android:title="Reminder at 9.00 AM"
-            android:icon="@drawable/ic_notification_24"/>
+            app:key="@string/key_reminder"
+            app:defaultValue="false"
+            android:title="@string/reminder"
+            android:icon="@drawable/ic_notification_24"
+            android:summaryOn="Set at 9.00 AM"
+            android:summaryOff="Set Off"/>
     </PreferenceCategory>
-    <PreferenceCategory
-        android:title="Appearance">
+    <PreferenceCategory android:title="@string/appearance">
         <ListPreference
-            android:title="Theme"
-            android:icon="@drawable/ic_favorite_24"
+            app:key="@string/key_theme"
+            android:title="@string/menu_theme"
+            app:useSimpleSummaryProvider="true"
+            android:defaultValue="1"
+            android:icon="@drawable/ic_theme_24"
             android:entries="@array/entries_list_theme"
             android:entryValues="@array/entry_values_list_theme"/>
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="General">
-        <Preference
-            android:title="@string/menu_language">
-            <intent android:action="android.intent.action.LOCALE_CHANGED"/>
-        </Preference>
     </PreferenceCategory>
 
 </PreferenceScreen>

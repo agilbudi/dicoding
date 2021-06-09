@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Github App</string>
-    <string name="menu_language" translatable="false">Bahasa</string>
-    <string name="menu_exit" translatable="false">Keluar</string>
-    <string name="name" translatable="false">#nama</string>
-    <string name="username" translatable="false">#namapengguna</string>
-    <string name="repository" translatable="false">Repository:</string>
-    <string name="followers" translatable="false">Pengikut:</string>
-    <string name="following" translatable="false">Mengikuti:</string>
-    <string name="search_hint" translatable="false">Cari Pengguna</string>
-    <string name="tab_followers" translatable="false">Pengikut</string>
-    <string name="tab_following" translatable="false">Mengikuti</string>
-    <string name="value_test">1000</string>
-    <string name="theme" translatable="false">Tema</string>
-    <string name="light" translatable="false">Terang</string>
-    <string name="dark" translatable="false">Gelap</string>
+    <string name="menu_language" >Bahasa</string>
+    <string name="menu_exit" >Keluar</string>
+    <string name="name" >#nama</string>
+    <string name="username" >#namapengguna</string>
+    <string name="repository" >Repositori:</string>
+    <string name="followers" >Pengikut:</string>
+    <string name="following" >Mengikuti:</string>
+    <string name="search_hint" >Cari Pengguna</string>
+    <string name="tab_followers" >Pengikut</string>
+    <string name="tab_following" >Mengikuti</string>
+    <string name="menu_theme" >Tema</string>
+    <string name="mode_light" >Terang</string>
+    <string name="mode_dark" >Gelap</string>
     <string name="favorite_users">Pengguna Favorit</string>
     <string name="add_favorite">ditambahkan ke Favorit sekarang</string>
     <string name="add_favorite_failed">gagal menambahkan ke Favorit</string>
     <string name="delete_favorite">dihapus dari Favorit</string>
     <string name="delete_favorite_failed">gagal dihapus</string>
     <string name="menu_setting">Pengaturan</string>
+    <string name="reminder">Pengingat</string>
+    <string name="notification">Pemberitahuan</string>
+    <string name="appearance">Tampilan</string>
+    <string name="general">Umum</string>
+    <string name="title_activity_settings" >Pengaturan</string>
+    <string name="massage">Come on! find another github user!</string>
 </resources>

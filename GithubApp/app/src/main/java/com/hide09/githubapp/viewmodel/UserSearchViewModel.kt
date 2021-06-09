@@ -19,11 +19,12 @@ class UserSearchViewModel: ViewModel() {
         private val TAG = UserSearchViewModel::class.java.simpleName
     }
 
-    fun setUserSearch(username: String?){
-        userService.getUserSearch(username!!).enqueue(object : Callback<UserSearch> {
+    fun setUserSearch(username: String){
+        userService.getUserSearch(username).enqueue(object : Callback<UserSearch> {
             override fun onResponse(call: Call<UserSearch>, response: Response<UserSearch>) {
                 val responseUserSearch = response.body()?.items
                 listUsersSearch.postValue(responseUserSearch)
+                Log.e(TAG, listUsersSearch.value.toString())
             }
             override fun onFailure(call: Call<UserSearch>, t: Throwable) {
                 Log.e(TAG, t.message.toString())

@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    android:id="@+id/setting_holder"
     android:background="?attr/colorPrimaryVariant"
+    android:id="@+id/setting"
     tools:context=".MainActivity">
     <SearchView
         android:id="@+id/sv_search"

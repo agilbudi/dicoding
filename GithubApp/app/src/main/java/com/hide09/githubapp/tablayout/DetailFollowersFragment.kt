@@ -61,7 +61,7 @@ class DetailFollowersFragment : Fragment() {
     private fun showData(username: String?) {
         detailTabVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailTabViewModel::class.java)
         detailTabVM.setUserFollowers(username!!)
-        detailTabVM.getUserFollowers().observe(activity!!, { items ->
+        detailTabVM.getUserFollowers().observe(requireActivity(), { items ->
             if (items != null){
                 detailAdapter.updateUsers(items)
             }
