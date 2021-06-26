@@ -1,46 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="movies">
-        <item>@drawable/poster_a_start_is_born</item>
-        <item>@drawable/poster_alita</item>
-        <item>@drawable/poster_aquaman</item>
-        <item>@drawable/poster_bohemian</item>
-        <item>@drawable/poster_cold_persuit</item>
-        <item>@drawable/poster_creed</item>
-        <item>@drawable/poster_crimes</item>
-        <item>@drawable/poster_glass</item>
-        <item>@drawable/poster_how_to_train</item>
-        <item>@drawable/poster_infinity_war</item>
-        <item>@drawable/poster_marry_queen</item>
-        <item>@drawable/poster_master_z</item>
-        <item>@drawable/poster_mortal_engines</item>
-        <item>@drawable/poster_overlord</item>
-        <item>@drawable/poster_ralph</item>
-        <item>@drawable/poster_robin_hood</item>
-        <item>@drawable/poster_serenity</item>
-        <item>@drawable/poster_spiderman</item>
-        <item>@drawable/poster_t34</item>
-    </string-array>
-    <string-array name="tv_shows">
-        <item>@drawable/tv_poster_arrow</item>
-        <item>@drawable/tv_poster_doom_patrol</item>
-        <item>@drawable/tv_poster_dragon_ball</item>
-        <item>@drawable/tv_poster_fairytail</item>
-        <item>@drawable/tv_poster_family_guy</item>
-        <item>@drawable/tv_poster_flash</item>
-        <item>@drawable/tv_poster_god</item>
-        <item>@drawable/tv_poster_gotham</item>
-        <item>@drawable/tv_poster_grey_anatomy</item>
-        <item>@drawable/tv_poster_hanna</item>
-        <item>@drawable/tv_poster_iron_fist</item>
-        <item>@drawable/tv_poster_naruto_shipudden</item>
-        <item>@drawable/tv_poster_ncis</item>
-        <item>@drawable/tv_poster_riverdale</item>
-        <item>@drawable/tv_poster_shameless</item>
-        <item>@drawable/tv_poster_supergirl</item>
-        <item>@drawable/tv_poster_supernatural</item>
-        <item>@drawable/tv_poster_the_simpson</item>
-        <item>@drawable/tv_poster_the_umbrella</item>
-        <item>@drawable/tv_poster_the_walking_dead</item>
+    <string-array name="tvShow">
+        <item>R.drawable.tv_poster_arrow</item>
+        <item>R.drawable.tv_poster_doom_patrol</item>
     </string-array>
 </resources>

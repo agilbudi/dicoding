@@ -21,9 +21,9 @@ class TabAdapter: RecyclerView.Adapter<TabAdapter.ListViewHolder>() {
         fun bind(movie: Movie) {
             with(binding){
                 Glide.with(itemView.context)
-                    .load(movie.image)
+                        .load(movie.image)
                     .into(ivItemImage)
-                tvItemYear.text = movie.year
+                tvItemYear.text = movie.year.toString()
             }
         }
 
