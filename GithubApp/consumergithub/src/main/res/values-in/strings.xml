@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_language" >Bahasa</string>
+    <string name="menu_exit" >Keluar</string>
+    <string name="name" >#nama</string>
+    <string name="username" >#namapengguna</string>
+    <string name="repository" >Repositori:</string>
+    <string name="followers" >Pengikut:</string>
+    <string name="following" >Mengikuti:</string>
+    <string name="tab_followers" >Pengikut</string>
+    <string name="tab_following" >Mengikuti</string>
+    <string name="menu_theme" >Tema</string>
+    <string name="add_favorite">ditambahkan ke Favorit sekarang</string>
+    <string name="add_favorite_failed">gagal menambahkan ke Favorit</string>
+    <string name="delete_favorite">dihapus dari Favorit</string>
+    <string name="delete_favorite_failed">gagal dihapus</string>
+    <string name="menu_setting">Pengaturan</string>
+    <string name="reminder">Pengingat</string>
+    <string name="notification">Pemberitahuan</string>
+    <string name="appearance">Tampilan</string>
+    <string name="title_activity_settings" >Pengaturan</string>
+    <string name="massage">Ayo! lihat pengguna github favoritmu!</string>
+    <string name="message_no_user_favorite">Tidak ada user Favorit</string>
+</resources>

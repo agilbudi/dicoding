@@ -42,7 +42,7 @@ class DetailFollowersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val username = arguments?.getString(ARG_USERNAME)
+        val username = arguments?.getString(ARG_USERNAME).toString()
         binding.rvFollowers.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
@@ -58,9 +58,9 @@ class DetailFollowersFragment : Fragment() {
         })
     }
 
-    private fun showData(username: String?) {
+    private fun showData(username: String) {
         detailTabVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailTabViewModel::class.java)
-        detailTabVM.setUserFollowers(username!!)
+        detailTabVM.setUserFollowers(username)
         detailTabVM.getUserFollowers().observe(requireActivity(), { items ->
             if (items != null){
                 detailAdapter.updateUsers(items)

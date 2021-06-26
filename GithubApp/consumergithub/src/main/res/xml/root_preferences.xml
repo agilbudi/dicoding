@@ -1,0 +1,28 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:iconSpaceReserved="false">
+
+    <PreferenceCategory app:title="@string/appearance">
+        <ListPreference
+            app:defaultValue="1"
+            app:entries="@array/entries_list_theme"
+            app:entryValues="@array/entry_values_list_theme"
+            app:key="@string/key_theme"
+            app:title="@string/menu_theme"
+            app:icon="@drawable/ic_baseline_theme_24"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/notification">
+
+        <SwitchPreferenceCompat
+            app:key="@string/key_reminder"
+            app:defaultValue="false"
+            app:summaryOn="Set at 9.00 AM"
+            app:summaryOff="Set Off"
+            app:title="@string/reminder"
+            app:icon="@drawable/ic_baseline_notifications_24"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

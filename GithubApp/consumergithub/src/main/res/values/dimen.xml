@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="layout_start">14dp</dimen>
+    <dimen name="layout_end">14dp</dimen>
+    <dimen name="layout_top">14dp</dimen>
+    <dimen name="layout_bottom">14dp</dimen>
+    <dimen name="item_start">8dp</dimen>
+    <dimen name="item_end">8dp</dimen>
+    <dimen name="large_width">6dp</dimen>
+</resources>

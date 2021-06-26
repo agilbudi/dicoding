@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name" translatable="false">Consumer Github</string>
+    <string name="menu_language">Language</string>
+    <string name="menu_setting">Setting</string>
+    <string name="menu_theme">Theme</string>
+    <string name="menu_exit">Exit</string>
+
+    <string name="name">#name</string>
+    <string name="username">#username</string>
+    <string name="repository">Repository:</string>
+    <string name="value_test" translatable="false">0</string>
+    <string name="followers">Followers:</string>
+    <string name="following">Following:</string>
+
+    <string name="tab_followers">Followers</string>
+    <string name="tab_following">Following</string>
+    <string name="add_favorite">add to Favorite now</string>
+    <string name="add_favorite_failed">failed to add Favorite</string>
+    <string name="delete_favorite">deleted from Favorite</string>
+    <string name="delete_favorite_failed">delete failed</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="key_reminder" translatable="false">reminder</string>
+    <string name="key_theme" translatable="false">theme</string>
+    <string name="reminder">Reminder</string>
+    <string name="notification">Notification</string>
+    <string name="appearance">Appearance</string>
+    <string name="massage">Come on! see your favorite github users!</string>
+    <string name="message_no_user_favorite">No User Favorite</string>
+
+</resources>

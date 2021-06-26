@@ -24,10 +24,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginStart">4dp</item>
     </style>
-    <style name="Theme.GithubApp.Detail" parent="Theme.GithubApp">
-        <item name="android:layout_marginTop">@dimen/small_width</item>
-        <item name="android:textSize">12sp</item>
-    </style>
+
     <style name="Theme.GithubApp.Detail.Header" parent="Theme.GithubApp">
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:gravity">center_horizontal</item>

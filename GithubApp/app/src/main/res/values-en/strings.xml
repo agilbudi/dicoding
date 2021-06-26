@@ -11,8 +11,6 @@
     <string name="tab_followers" >Followers</string>
     <string name="tab_following" >Following</string>
     <string name="menu_theme">Theme</string>
-    <string name="mode_light">Light Mode</string>
-    <string name="mode_dark">Dark Mode</string>
     <string name="favorite_users">Favorite User</string>
     <string name="add_favorite">add to Favorite now</string>
     <string name="add_favorite_failed">failed to add Favorite</string>
@@ -22,7 +20,7 @@
     <string name="reminder">Reminder</string>
     <string name="notification">Notification</string>
     <string name="appearance">Appearance</string>
-    <string name="general">General</string>
     <string name="title_activity_settings" >Settings</string>
     <string name="massage">Come on! find another github user!</string>
+    <string name="message_no_user_favorite">No User Favorite</string>
 </resources>

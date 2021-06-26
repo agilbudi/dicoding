@@ -11,8 +11,6 @@
     <string name="tab_followers" >Pengikut</string>
     <string name="tab_following" >Mengikuti</string>
     <string name="menu_theme" >Tema</string>
-    <string name="mode_light" >Terang</string>
-    <string name="mode_dark" >Gelap</string>
     <string name="favorite_users">Pengguna Favorit</string>
     <string name="add_favorite">ditambahkan ke Favorit sekarang</string>
     <string name="add_favorite_failed">gagal menambahkan ke Favorit</string>
@@ -22,7 +20,7 @@
     <string name="reminder">Pengingat</string>
     <string name="notification">Pemberitahuan</string>
     <string name="appearance">Tampilan</string>
-    <string name="general">Umum</string>
     <string name="title_activity_settings" >Pengaturan</string>
-    <string name="massage">Come on! find another github user!</string>
+    <string name="massage">Ayo! cari pengguna github yang lain!</string>
+    <string name="message_no_user_favorite">Tidak ada user Favorit</string>
 </resources>

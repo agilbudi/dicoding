@@ -132,6 +132,5 @@
         android:foregroundGravity="top"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_favorite_24"
         app:fabSize="normal" />
 </RelativeLayout>

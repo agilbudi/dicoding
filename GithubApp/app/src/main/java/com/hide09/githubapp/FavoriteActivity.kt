@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hide09.githubapp.adapter.FavoriteListAdapter
 import com.hide09.githubapp.databinding.ActivityFavoriteBinding
-import com.hide09.githubapp.db.FavoriteHelper
 import com.hide09.githubapp.entity.Favorite
 import com.hide09.githubapp.helper.MappingHelper
 import com.hide09.githubapp.viewmodel.UserFavoriteViewModel
@@ -30,7 +29,6 @@ import java.lang.IllegalStateException
 class FavoriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFavoriteBinding
     private lateinit var favoriteVM: UserFavoriteViewModel
-    private lateinit var favoriteHelper: FavoriteHelper
     private val userAdapter = FavoriteListAdapter()
     companion object{
         val TAG: String = FavoriteActivity::class.java.simpleName
@@ -40,10 +38,10 @@ class FavoriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.favorite_users)
         favoriteVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserFavoriteViewModel::class.java)
-        favoriteHelper = FavoriteHelper.getInstance(applicationContext)
         val handlerThread = HandlerThread("DataObserver")
         handlerThread.start()
         val handler = Handler(handlerThread.looper)
@@ -53,35 +51,14 @@ class FavoriteActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             adapter = userAdapter
         }
+
+        loadData()
         val myObserver = object : ContentObserver(handler){
             override fun onChange(selfChange: Boolean) {
-                showLoading(true)
                 loadData()
-                try {
-                    favoriteVM.getFavorite().observe(this@FavoriteActivity, { items ->
-                        if (items.size > 0) {
-                            userAdapter.updateFavorite(items)
-                        } else {
-                            showToast("Tidak ada user Favorit", false)
-                        }
-                    })
-                }catch (e: IllegalStateException){
-                    Log.e(TAG, e.message.toString())
-                }
-                showLoading(false)
             }
-
         }
         contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)
-        loadData()
-        favoriteVM.getFavorite().observe(this, {items ->
-            if (items != null){
-                userAdapter.updateFavorite(items)
-                showLoading(false)
-            }else{
-                showToast("Tidak ada user Favorit",true)
-            }
-        })
 
         userAdapter.setOnItemClickCallback(object : FavoriteListAdapter.OnItemClickCallback{
             override fun onItemClicked(data: Favorite) {
@@ -93,12 +70,21 @@ class FavoriteActivity : AppCompatActivity() {
     private fun loadData() {
         GlobalScope.launch(Dispatchers.Main) {
             val deferred = async(Dispatchers.IO) {
-                favoriteHelper.open()
                 val cursor = contentResolver.query(CONTENT_URI, null, null, null, null, null)
                 MappingHelper.mapCursorToArrayList(cursor)
             }
+            showLoading(true)
             val data = deferred.await()
+            showLoading(false)
             favoriteVM.setFavorite(data)
+                favoriteVM.getFavorite().observe(this@FavoriteActivity, { items ->
+                    if (items.size > 0) {
+                        userAdapter.updateFavorite(items)
+                    } else {
+                        userAdapter.updateFavorite(items)
+                        Toast.makeText(this@FavoriteActivity, getString(R.string.message_no_user_favorite), Toast.LENGTH_LONG).show()
+                    }
+                })
         }
     }
 
@@ -124,7 +110,6 @@ class FavoriteActivity : AppCompatActivity() {
         val intent = Intent(this, DetailUserActivity::class.java)
         intent.putExtra(DetailUserActivity.EXTRA_USER, user.username)
         startActivity(intent)
-        finish()
     }
 
     private fun showLoading(status: Boolean) {
@@ -142,4 +127,5 @@ class FavoriteActivity : AppCompatActivity() {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
     }
+
 }

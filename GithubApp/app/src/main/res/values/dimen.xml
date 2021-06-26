@@ -5,10 +5,5 @@
     <dimen name="layout_top">14dp</dimen>
     <dimen name="layout_bottom">14dp</dimen>
     <dimen name="item_start">8dp</dimen>
-    <dimen name="item_end">8dp</dimen>
-    <dimen name="item_top">2dp</dimen>
-    <dimen name="item_bottom">2dp</dimen>
-    <dimen name="medium_width">4dp</dimen>
     <dimen name="large_width">6dp</dimen>
-    <dimen name="small_width">2dp</dimen>
 </resources>
