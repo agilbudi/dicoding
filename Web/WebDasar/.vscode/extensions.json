@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "ms-python.python",
+        "formulahendry.auto-close-tag",
+        "sirmspencer.vscode-autohide",
+        "formulahendry.auto-rename-tag",
+        "coenraads.bracket-pair-colorizer",
+        "felixfbecker.php-intellisense",
+        "ms-vsliveshare.vsliveshare"
+    ]
+}
