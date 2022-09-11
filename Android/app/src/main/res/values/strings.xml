@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Android Intermediate</string>
+    <string name="selesai">Selesai</string>
+    <string name="latihan_advanced_ui">Latihan Advanced UI</string>
+    <string name="custom_view">Custom View</string>
+    <string name="tiketing_app">Tiketing App</string>
+    <string name="menggambar_dengan_canvas">Menggambar dengan Canvas</string>
+</resources>
