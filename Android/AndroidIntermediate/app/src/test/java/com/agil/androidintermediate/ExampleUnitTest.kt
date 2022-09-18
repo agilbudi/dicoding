@@ -1,4 +1,4 @@
-package com.agil.myandroidintermediate
+package com.agil.androidintermediate
 
 import org.junit.Test
 

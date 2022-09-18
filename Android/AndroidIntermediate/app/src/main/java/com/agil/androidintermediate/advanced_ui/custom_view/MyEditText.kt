@@ -1,4 +1,4 @@
-package com.agil.myandroidintermediate.advanced_ui
+package com.agil.androidintermediate.advanced_ui.custom_view
 
 import android.content.Context
 import android.graphics.Canvas
@@ -10,7 +10,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
-import com.agil.myandroidintermediate.R
+import com.agil.androidintermediate.R
 
 class MyEditText: AppCompatEditText, View.OnTouchListener {
     private lateinit var clearButtonImage: Drawable
@@ -32,10 +32,10 @@ class MyEditText: AppCompatEditText, View.OnTouchListener {
     }
 
     private fun init() {
-        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_baseline_close_24) as Drawable
+        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_baseline_close) as Drawable
         setOnTouchListener(this)
 
-        addTextChangedListener(object : TextWatcher{
+        addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 //sebelum text berubah
             }
@@ -69,12 +69,12 @@ class MyEditText: AppCompatEditText, View.OnTouchListener {
             if(isClearButtonClicked){
                 when(event?.action){
                     MotionEvent.ACTION_DOWN -> {
-                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_baseline_close_24)as Drawable
+                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_baseline_close)as Drawable
                         showClearButton()
                         return true
                     }
                     MotionEvent.ACTION_UP -> {
-                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_baseline_close_24)as Drawable
+                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_baseline_close)as Drawable
                         when{
                             text != null -> text?.clear()
                         }

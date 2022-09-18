@@ -1,4 +1,4 @@
-package com.agil.myandroidintermediate.advanced_ui.tiketing
+package com.agil.androidintermediate.advanced_ui.ticketing
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,10 +8,9 @@ import android.graphics.Path
 import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.view.MotionEvent.ACTION_DOWN
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
-import com.agil.myandroidintermediate.R
+import com.agil.androidintermediate.R
 
 class SeatsView: View {
     var seat: Seat? = null
@@ -91,7 +90,7 @@ class SeatsView: View {
         val heightRowThree = (halfOfHeight + 0F)..(halfOfHeight + 200F)
         val heightRowFour = (halfOfHeight + 300F)..(halfOfHeight + 500F)
 
-        if (event!!.action == ACTION_DOWN){
+        if (event!!.action == MotionEvent.ACTION_DOWN){
             when{
                 event.x in widthColumnOne && event.y in heightRowOne -> booking(0)
                 event.x in widthColumnTwo && event.y in heightRowOne -> booking(1)
@@ -168,5 +167,4 @@ class SeatsView: View {
         //Mengembalikan kepengaturan sebelumnya
         canvas?.restore()
     }
-
 }

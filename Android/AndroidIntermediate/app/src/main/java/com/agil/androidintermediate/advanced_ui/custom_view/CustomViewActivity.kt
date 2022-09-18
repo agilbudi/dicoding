@@ -1,11 +1,11 @@
-package com.agil.myandroidintermediate.advanced_ui
+package com.agil.androidintermediate.advanced_ui.custom_view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
-import com.agil.myandroidintermediate.R
+import com.agil.androidintermediate.R
 
 class CustomViewActivity : AppCompatActivity() {
     private lateinit var myButton: MyButton
@@ -19,7 +19,7 @@ class CustomViewActivity : AppCompatActivity() {
         myEditText = findViewById(R.id.my_edit_text)
 
         setMyButtonEnable()
-        myEditText.addTextChangedListener(object : TextWatcher{
+        myEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, cout: Int, after: Int) {
 
             }
@@ -32,11 +32,12 @@ class CustomViewActivity : AppCompatActivity() {
 
             }
         })
-        myButton.setOnClickListener{Toast.makeText(this, myEditText.text, Toast.LENGTH_SHORT).show() }
+        myButton.setOnClickListener{ Toast.makeText(this, myEditText.text, Toast.LENGTH_SHORT).show() }
     }
 
     private fun setMyButtonEnable() {
         val result = myEditText.text
         myButton.isEnabled = result != null && result.toString().isNotEmpty()
     }
+
 }

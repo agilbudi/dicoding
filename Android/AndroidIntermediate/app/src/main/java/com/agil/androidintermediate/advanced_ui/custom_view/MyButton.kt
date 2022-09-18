@@ -1,4 +1,4 @@
-package com.agil.myandroidintermediate.advanced_ui
+package com.agil.androidintermediate.advanced_ui.custom_view
 
 import android.content.Context
 import android.graphics.Canvas
@@ -7,7 +7,7 @@ import android.util.AttributeSet
 import android.view.Gravity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
-import com.agil.myandroidintermediate.R
+import com.agil.androidintermediate.R
 
 class MyButton: AppCompatButton {
     private lateinit var enableBackground: Drawable

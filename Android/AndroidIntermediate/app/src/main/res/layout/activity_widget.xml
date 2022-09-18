@@ -4,30 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="6dp"
-    android:background="@color/white"
-    tools:context=".advanced_ui.ticketing.TicketingActivity">
+    tools:context=".advanced_ui.widget.WidgetActivity">
 
     <Button
-        android:id="@+id/finishButton"
+        android:id="@+id/btn_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/selesai"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/exit_to_home_screen"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <com.agil.androidintermediate.advanced_ui.ticketing.SeatsView
-        android:id="@+id/seatsView"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/finishButton"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:text="@string/widget_ada_di_home_screen"
+        android:textAlignment="center"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="SpeakableTextPresentCheck"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

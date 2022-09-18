@@ -1,8 +1,30 @@
 <resources>
-    <string name="app_name">My Android Intermediate</string>
-    <string name="selesai">Selesai</string>
+    <string name="app_name">Android Intermediate</string>
     <string name="latihan_advanced_ui">Latihan Advanced UI</string>
+
     <string name="custom_view">Custom View</string>
-    <string name="tiketing_app">Tiketing App</string>
+
+    <string name="ticketing_app">Ticketing App</string>
+    <string name="selesai">Selesai</string>
+
     <string name="canvas">Canvas</string>
+    <string name="like">Suka</string>
+    <string name="dislike">Tidak Suka</string>
+    <string name="latihan_animation">Latihan Animation</string>
+    <string name="widget">Widget</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="exit_to_home_screen">Exit to Home Screen</string>
+
+    <string name="start_update">START UPDATE</string>
+    <string name="stop_update">STOP UPDATE</string>
+    <string name="random">Random: 100</string>
+    <string name="generate">Generate</string>
+
+
+    <string name="appwidget_text_2">STAR WARS BANNER</string>
+    <string name="empty_text">NO DATA</string>
+    <string name="webview">WebView</string>
+    <string name="widget_ada_di_home_screen">Widget ada di Home Screen</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.agil.myandroidintermediate.advanced_ui.tiketing
+package com.agil.androidintermediate.advanced_ui.ticketing
 
 data class Seat(
     val id: Int,
@@ -6,4 +6,4 @@ data class Seat(
     var y: Float? = 0F,
     var name: String,
     var isBooked: Boolean
-)
+    )

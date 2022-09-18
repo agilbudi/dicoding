@@ -7,10 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--    new color-->
     <color name="pink_500">#D81B60</color>
     <color name="pink_200">#FF8FAF</color>
-
-<!--    new color-->
     <color name="blue_700">#0E4E96</color>
     <color name="blue_500">#1D70BE</color>
     <color name="blue_200">#519CE0</color>
@@ -19,4 +19,14 @@
     <color name="green_700">#37960E</color>
     <color name="green_500">#2DBE1D</color>
     <color name="green_200">#5FE051</color>
+
+    <color name="brown_right_hair">#A2693F</color>
+    <color name="brown_left_hair">#C4814D</color>
+    <color name="yellow_right_skin">#FCCD7A</color>
+    <color name="yellow_left_skin">#FEF89F</color>
+    <color name="red_ear">#F47F67</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
 </resources>
