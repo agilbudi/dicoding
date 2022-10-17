@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/activity_add_story_scene"
+    tools:context=".AddStoryActivity">
+
+    <ImageView
+        android:id="@+id/iv_add_story_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_200"
+        android:contentDescription="@string/add_photo_story"
+        android:minHeight="420dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_image_default_foreground" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_to_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:contentDescription="@string/gallery"
+        android:src="@drawable/ic_gallery"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="@id/fab_get_photo"
+        app:layout_constraintEnd_toStartOf="@id/fab_get_photo" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_to_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="3dp"
+        android:contentDescription="@string/camera"
+        android:src="@drawable/ic_camera"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@id/fab_get_photo"
+        app:layout_constraintEnd_toEndOf="@id/fab_get_photo" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_get_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:contentDescription="@string/get_photo"
+        android:src="@drawable/ic_add"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@id/button_add"
+        app:layout_constraintEnd_toStartOf="@+id/button_add"
+        app:layout_constraintTop_toTopOf="@id/button_add" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="14dp"
+        android:background="@color/white"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="5dp"
+        app:layout_constraintBottom_toTopOf="@id/button_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_title_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@color/teal_200"
+                android:padding="8dp"
+                android:text="@string/description" />
+
+            <EditText
+                android:id="@+id/ed_add_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_title_desc"
+                android:layout_margin="8dp"
+                android:background="@color/white"
+                android:gravity="top|start"
+                android:hint="@string/write_here"
+                android:inputType="textMultiLine"
+                android:maxLines="16"
+                android:minLines="8"
+                android:paddingHorizontal="4dp"
+                android:scrollbars="vertical"
+                tools:ignore="Autofill" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/button_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/post"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

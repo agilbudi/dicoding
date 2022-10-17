@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Story App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="logout">logout</string>
+    <string name="check_state">Check State</string>
+    <string name="detail_photo">detail photo story</string>
+    <string name="post_by">Post by</string>
+    <string name="exit">exit</string>
+    <string name="add_story">Add Story</string>
+    <string name="add_photo_story">add photo story</string>
+    <string name="get_photo">get photo</string>
+    <string name="description">Description:</string>
+    <string name="post">Post</string>
+    <string name="write_here">write here</string>
+    <string name="choose_from">Choose from:</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="not_available">Not Available</string>
+
+    <string name="required_password">password must be 6 characters</string>
+    <string name="email_not_valid">Email not valid</string>
+    <string name="Failed_to_take_a_picture">Failed to take a picture.</string>
+    <string name="Failed_to_open_camera">Failed to open camera.</string>
+    <string name="no_image">No image file to upload.</string>
+</resources>

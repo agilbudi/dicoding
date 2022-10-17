@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1000"
+        motion:motionInterpolator="linear"
+        motion:autoTransition="animateToEnd">
+       <KeyFrameSet>
+           <KeyPosition
+               motion:motionTarget="@+id/fab_get_photo"
+               motion:framePosition="70"
+               motion:keyPositionType="parentRelative"
+               motion:percentY="0.7" />
+           <KeyPosition
+               motion:motionTarget="@+id/fab_get_photo"
+               motion:framePosition="90"
+               motion:keyPositionType="parentRelative"
+               motion:percentY="1" />
+           <KeyAttribute
+               motion:motionTarget="@+id/cardView3"
+               motion:framePosition="70"
+               android:scaleY="1" />
+           <KeyAttribute
+               motion:motionTarget="@+id/cardView3"
+               motion:framePosition="40"
+               android:scaleY="0.4" />
+       </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/fab_get_photo"
+            motion:layout_constraintEnd_toStartOf="@+id/button_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@id/button_add"
+            android:layout_marginEnd="32dp"
+            motion:layout_constraintTop_toTopOf="@id/button_add"
+            android:translationY="100dp"
+            motion:transitionEasing="cubic(0,1,1,0.66)" />
+        <Constraint
+            android:id="@+id/cardView3"
+            android:layout_width="500dp"
+            android:layout_height="900dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:transitionEasing="cubic(0.32,0.75,0.52,0.29)" />
+        <Constraint
+            android:id="@+id/button_add"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="24dp"
+            android:translationY="170dp"
+            motion:transitionEasing="cubic(0,1,1,0.68)" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/fab_get_photo"
+            motion:layout_constraintEnd_toStartOf="@+id/button_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@id/button_add"
+            android:layout_marginEnd="32dp"
+            motion:layout_constraintTop_toTopOf="@id/button_add" />
+        <Constraint
+            android:id="@+id/button_add"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="24dp" />
+        <Constraint
+            android:id="@+id/cardView3"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            motion:layout_constraintBottom_toTopOf="@id/button_add"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp" />
+    </ConstraintSet>
+</MotionScene>

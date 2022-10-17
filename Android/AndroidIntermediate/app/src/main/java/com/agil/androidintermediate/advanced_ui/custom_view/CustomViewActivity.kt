@@ -36,6 +36,7 @@ class CustomViewActivity : AppCompatActivity() {
     }
 
     private fun setMyButtonEnable() {
+        MyEditText.textHint("Masukan Nama Anda")
         val result = myEditText.text
         myButton.isEnabled = result != null && result.toString().isNotEmpty()
     }

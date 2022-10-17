@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/drawable-v24/bg_button_disable.xml" value="0.136" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/drawable-v24/ic_capture.xml" value="0.142" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/drawable/bg_button.xml" value="0.1" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/drawable/bg_button_disable.xml" value="0.1065" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/drawable/bg_layout.xml" value="0.15" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/drawable/ic_camera.xml" value="0.1155" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/drawable/ic_close.xml" value="0.136" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/drawable/ic_gallery.xml" value="0.1" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/drawable/ic_image_default_foreground.xml" value="0.152" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/drawable/ic_user_default_foreground.xml" value="0.13" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/layout-land/activity_add_story.xml" value="0.20833333333333334" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/layout-land/activity_camera.xml" value="0.17708333333333334" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/layout/activity_add_story.xml" value="0.22" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/layout/activity_authentication.xml" value="0.1" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/layout/activity_camera.xml" value="0.209375" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/layout/activity_camera_xactivity.xml" value="0.209375" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/layout/activity_detail_story.xml" value="0.2" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/layout/activity_image_viewer.xml" value="0.209375" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/layout/activity_main.xml" value="0.1953125" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/layout/dialog_photo.xml" value="0.33" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/layout/fragment_image_viewer.xml" value="0.209375" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/layout/fragment_login.xml" value="0.209375" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/layout/fragment_register.xml" value="0.209375" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/layout/item_stories.xml" value="0.209375" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/menu/menu.xml" value="0.209375" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/mipmap-anydpi-v26/ic_image_default.xml" value="0.1185" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/mipmap-anydpi-v26/ic_image_default_round.xml" value="0.1185" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/mipmap-anydpi-v26/ic_user_default.xml" value="0.1185" />
+        <entry key="..\:/Users/hide09/AndroidStudioProjects/Dicoding/dicoding/Android/Submission/Intermediate/app/src/main/res/mipmap-anydpi-v26/ic_user_default_round.xml" value="0.1185" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
