@@ -1,6 +1,5 @@
 package com.agil.storyapp.auth
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -100,6 +99,7 @@ class RegisterFragment : Fragment(), TextWatcher, View.OnFocusChangeListener, Vi
                     binding.btnRegister.isEnabled = true
                 }
             }else{
+                isErrorPassword(txtPassword.toString())
                 binding.btnRegister.isEnabled = false
             }
         }else{
@@ -109,9 +109,9 @@ class RegisterFragment : Fragment(), TextWatcher, View.OnFocusChangeListener, Vi
 
     private fun replaceFragment(fragment: Fragment) {
         viewModel.resetResponseStatus()
-        val mFragmentManager = fragmentManager
-        mFragmentManager?.popBackStack()
-        mFragmentManager?.beginTransaction()?.apply {
+        val mFragmentManager = parentFragmentManager
+        mFragmentManager.popBackStack()
+        mFragmentManager.beginTransaction().apply {
             replace(R.id.fg_auth, fragment, fragment.tag)
             commit()
         }
@@ -144,12 +144,12 @@ class RegisterFragment : Fragment(), TextWatcher, View.OnFocusChangeListener, Vi
                 }
                 binding.edRegisterPassword.id ->{
                     val textPassword = binding.edRegisterPassword.text.toString()
-                    isErrorPassword(textPassword)
                     password = textPassword
                 }
             }
         }
     }
+
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(EXTRA_NAME, name)
         outState.putString(EXTRA_PASSWORD, password)

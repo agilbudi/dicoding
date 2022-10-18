@@ -68,32 +68,38 @@ class AddStoryActivity : AppCompatActivity(), View.OnFocusChangeListener, View.O
         binding.buttonAdd.isEnabled = false
         closeFabMenu()
         binding.fabGetPhoto.isEnabled = false
-            var desc = binding.edAddDescription.text.toString()
+            val desc = binding.edAddDescription.text.toString()
             val token = mUserPreference.getUser().token
             val image = viewModel.getUrl()
             if (image != null) {
-                val file = reduceFileImage(image)
-                desc = if (desc == "") "No Description" else desc
-                val description = desc.toRequestBody("text/plain".toMediaType())
-                val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                    "photo",
-                    file.name,
-                    requestImageFile
-                )
-                if (token != null) {
-                    viewModel.postStory(token, imageMultipart, description)
-                }
-                viewModel.getResponseStatus().observe(this) {
-                    val error = it.error
-                    val message = it.message
-                        if (!message.isEmpty()) showToast(this, message, true)
-                        if (!error){
-                            finish()
-                        }else{
-                            binding.buttonAdd.isEnabled = true
-                            binding.fabGetPhoto.isEnabled = true
-                        }
+                if (desc != "") {
+                    val file = reduceFileImage(image)
+                    val description = desc.toRequestBody("text/plain".toMediaType())
+                    val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                        "photo",
+                        file.name,
+                        requestImageFile
+                    )
+
+                    if (token != null) {
+                        viewModel.postStory(token, imageMultipart, description)
+                    }
+                    viewModel.getResponseStatus().observe(this) {
+                        val error = it.error
+                        val message = it.message
+                            if (message.isNotEmpty()) showToast(this, message, true)
+                            if (!error){
+                                finish()
+                            }else{
+                                binding.buttonAdd.isEnabled = true
+                                binding.fabGetPhoto.isEnabled = true
+                            }
+                    }
+                }else{
+                    showToast(this, "please insert a description", false)
+                    binding.buttonAdd.isEnabled = true
+                    binding.fabGetPhoto.isEnabled = true
                 }
             } else {
                 showToast(this, getString(R.string.no_image), false)

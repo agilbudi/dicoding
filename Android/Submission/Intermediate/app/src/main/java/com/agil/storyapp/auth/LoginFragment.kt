@@ -102,6 +102,7 @@ class LoginFragment : Fragment(), TextWatcher, View.OnFocusChangeListener, View.
                     binding.btnLogin.isEnabled = true
                 }
             }else{
+                isErrorPassword(txtPassword.toString())
                 binding.btnLogin.isEnabled = false
             }
         }else{
@@ -112,8 +113,8 @@ class LoginFragment : Fragment(), TextWatcher, View.OnFocusChangeListener, View.
 
     private fun replaceFragment(fragment: Fragment) {
         viewModel.resetResponseStatus()
-        val mFragmentManager = fragmentManager
-        mFragmentManager?.beginTransaction()?.apply {
+        val mFragmentManager = parentFragmentManager
+        mFragmentManager.beginTransaction().apply {
             replace(R.id.fg_auth, fragment, fragment.tag)
             addToBackStack(null)
             commit()
@@ -143,7 +144,6 @@ class LoginFragment : Fragment(), TextWatcher, View.OnFocusChangeListener, View.
                 }
                 binding.edLoginPassword.id ->{
                     val pass = binding.edLoginPassword.text.toString()
-                    isErrorPassword(pass)
                     password = pass
                 }
             }
