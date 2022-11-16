@@ -40,7 +40,7 @@ class AddStoryActivity : AppCompatActivity(), View.OnFocusChangeListener, View.O
     private val restartTranslate = 0.0f
     private val fabScale = 1.1f
     private var lat: Float? = null
-    private var lng: Float? = null
+    private var lon: Float? = null
     private var imagePath: String = ""
     private var desc: String = ""
     private lateinit var factory: AddStoryViewModelFactory
@@ -116,7 +116,8 @@ class AddStoryActivity : AppCompatActivity(), View.OnFocusChangeListener, View.O
             if (location != null) {
                 mUserPreference.setLocation(location)
                 lat = location.latitude.toFloat()
-                lng = location.longitude.toFloat()
+                lon = location.longitude.toFloat()
+                showToast(this, "location set: $lat, $lon", false)
             }
             isLocationEnable = !isLocationEnable
             showLoading(false)
@@ -295,7 +296,7 @@ class AddStoryActivity : AppCompatActivity(), View.OnFocusChangeListener, View.O
         val longitude = if (user.lon?.toDouble() != 0.0) user.lon else null
         if (latitude != null && longitude != null){
             lat = latitude
-            lng = longitude
+            lon = longitude
             isLocationEnable = true
         }
         binding.rbAddLocation.isChecked = isLocationEnable
@@ -316,6 +317,7 @@ class AddStoryActivity : AppCompatActivity(), View.OnFocusChangeListener, View.O
         binding.buttonAdd.isEnabled = !isLoading
         binding.fabGetPhoto.isEnabled = !isLoading
         binding.pbAddStory.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.rbAddLocation.isEnabled = !isLoading
     }
 
     private fun showToast(context: Context, text: String, isLong: Boolean) {
@@ -349,7 +351,6 @@ class AddStoryActivity : AppCompatActivity(), View.OnFocusChangeListener, View.O
     }
 
     companion object {
-        val TAG: String = AddStoryActivity::class.java.simpleName
         const val CAMERA_X_RESULT = 200
         private const val IMAGE_PATH = "image_path"
         private const val DESCRIPTION = "desc"
