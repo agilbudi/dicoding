@@ -3,7 +3,6 @@ package com.agil.storyapp.ui
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.location.Location
@@ -67,7 +66,6 @@ class MapStoryActivity : AppCompatActivity(), OnMapReadyCallback,
         factory = MapViewModelFactory.getInstance(this)
         binding = ActivityMapStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_NOSENSOR
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
@@ -120,19 +118,16 @@ class MapStoryActivity : AppCompatActivity(), OnMapReadyCallback,
                 finish()
             }
             updateListStory(user)
-            val camera = lastKnownLocation
-            if (camera != null) {
-                moveZoomingCamera(LatLng(camera.latitude,camera.longitude), 15F)
-            }else{
-                moveZoomingCamera(DEFAULT_MARKER_POSITION, 12F)
-            }
         }
     }
 
     private fun updateListStory(user: User) {
         viewModel.listStory(user.token).observe(this){ result ->
             when(result){
-                is Result.Success ->{ mapPagingAdapter.submitData(lifecycle, result.data) }
+                is Result.Success ->{
+                    mapPagingAdapter.submitData(lifecycle, result.data)
+                    binding.srMapStory.isRefreshing = false
+                }
                 is Result.Error ->{
                     Toast.makeText(this, result.error,Toast.LENGTH_SHORT).show()
                     binding.srMapStory.isRefreshing = false
@@ -152,9 +147,9 @@ class MapStoryActivity : AppCompatActivity(), OnMapReadyCallback,
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        val lat = if (user.lat?.toDouble() != 0.0) user.lat else null
-        val lon = if (user.lon?.toDouble() != 0.0) user.lon else null
-        val position = if (lat != null && lon != null) LatLng(lat.toDouble(),lon.toDouble()) else DEFAULT_MARKER_POSITION
+        val lat = if (user.lat != 0F) user.lat!!.toDouble() else null
+        val lon = if (user.lon != 0F) user.lon!!.toDouble() else null
+        val position = if (lat != null && lon != null) LatLng(lat,lon) else DEFAULT_MARKER_POSITION
 
         uiSetting()
         setMapStyle()
@@ -165,7 +160,7 @@ class MapStoryActivity : AppCompatActivity(), OnMapReadyCallback,
         mMap.setOnMapClickListener(this)
         mMap.setOnMapLongClickListener(this)
 
-        moveZoomingCamera(position, 12F)
+        moveZoomingCamera(position, 10F)
     }
 
 
@@ -375,10 +370,10 @@ class MapStoryActivity : AppCompatActivity(), OnMapReadyCallback,
 
         if (requestCode == PERMISSION_REQUEST_ACCESS_LOCATION){
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(applicationContext,"Location Permission Granted",Toast.LENGTH_SHORT).show()
+                showToast(applicationContext,"Location Permission Granted",false)
                 setUpPermission()
             }else {
-                Toast.makeText(applicationContext, "Location Permission Denied", Toast.LENGTH_SHORT).show()
+                showToast(applicationContext, "Location Permission Denied", false)
             }
         }
 

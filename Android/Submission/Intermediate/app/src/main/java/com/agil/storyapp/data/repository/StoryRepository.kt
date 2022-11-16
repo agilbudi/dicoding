@@ -14,10 +14,10 @@ class StoryRepository private constructor(
 ){
     private val result = MediatorLiveData<Result<PagingData<StoryEntity>>>()
 
+    @OptIn(ExperimentalPagingApi::class)
     fun getPageStory(token: String): LiveData<Result<PagingData<StoryEntity>>> {
-        result.value = Result.Loading
         try {
-            @OptIn(ExperimentalPagingApi::class)
+            result.value = Result.Loading
             val data = Pager(
                 config = PagingConfig(pageSize = 5),
                 remoteMediator = StoryRemoteMediator(token,database, apiService),
@@ -32,7 +32,6 @@ class StoryRepository private constructor(
 
         return result
     }
-
 
     companion object{
         @Volatile
