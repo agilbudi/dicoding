@@ -30,7 +30,7 @@ object DataDummy {
     }
     fun generatedDataDummyResponse(): ResponseMessage {
         val error = false
-        val message = "success"
+        val message = "error"
 
         return ResponseMessage(error, message)
     }
