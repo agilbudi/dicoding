@@ -47,75 +47,76 @@ class AuthViewModelTest {
 
     @Test
     fun `when login Return Success Should Not Null`()= runTest {
-        val expectedStory = MutableLiveData<Result<AuthLogin>>()
-        expectedStory.value = Result.Success(dummyAuth)
+        val expectedData = MutableLiveData<Result<AuthLogin>>()
+        expectedData.value = Result.Success(dummyAuth)
 
-        Mockito.`when`(authRepository.login(email, password)).thenReturn(expectedStory)
+        Mockito.`when`(authRepository.login(email, password)).thenReturn(expectedData)
 
-        val actualStory = authViewModel.login(email, password).getOrAwaitValue()
+        val actualData = authViewModel.login(email, password).getOrAwaitValue()
         Mockito.verify(authRepository).login(email, password)
 
-        Assert.assertNotNull(actualStory)
-        Assert.assertTrue(actualStory is Result.Success)
-        Assert.assertEquals(dummyAuth, (actualStory as Result.Success).data)
-        Assert.assertEquals(dummyAuth.loginResult.token, actualStory.data.loginResult.token)
+        Assert.assertNotNull(actualData)
+        Assert.assertTrue(actualData is Result.Success)
+        Assert.assertEquals(dummyAuth, (actualData as Result.Success).data)
+        Assert.assertEquals(dummyAuth.loginResult.token, actualData.data.loginResult.token)
     }
     @Test
     fun `when login Return Error Should Not Null`()= runTest{
-        val expectedStory = MutableLiveData<Result<AuthLogin>>()
-        expectedStory.value = Result.Error("error")
+        val expectedData = MutableLiveData<Result<AuthLogin>>()
+        expectedData.value = Result.Error(dummyResponse.message)
 
-        Mockito.`when`(authRepository.login(email, password)).thenReturn(expectedStory)
+        Mockito.`when`(authRepository.login(email, password)).thenReturn(expectedData)
 
-        val actualStory = authViewModel.login(email, password).getOrAwaitValue()
+        val actualData = authViewModel.login(email, password).getOrAwaitValue()
         Mockito.verify(authRepository).login(email, password)
 
-        Assert.assertNotNull(actualStory)
-        Assert.assertTrue(actualStory is Result.Error)
+        Assert.assertNotNull(actualData)
+        Assert.assertTrue(actualData is Result.Error)
+        Assert.assertEquals(dummyResponse.message, (actualData as Result.Error).error)
     }
 
 
     @Test
     fun `when register Return Success Should Not Null`()= runTest {
-        val expectedStory = MutableLiveData<Result<ResponseMessage>>()
-        expectedStory.value = Result.Success(dummyResponse)
+        val expectedData = MutableLiveData<Result<ResponseMessage>>()
+        expectedData.value = Result.Success(dummyResponse)
 
-        Mockito.`when`(authRepository.register(name, email, password)).thenReturn(expectedStory)
+        Mockito.`when`(authRepository.register(name, email, password)).thenReturn(expectedData)
 
-        val actualStory = authViewModel.register(name, email, password).getOrAwaitValue()
+        val actualData = authViewModel.register(name, email, password).getOrAwaitValue()
         Mockito.verify(authRepository).register(name, email, password)
 
-        Assert.assertNotNull(actualStory)
-        Assert.assertTrue(actualStory is Result.Success)
-        Assert.assertEquals(dummyResponse.message, (actualStory as Result.Success).data.message)
+        Assert.assertNotNull(actualData)
+        Assert.assertTrue(actualData is Result.Success)
+        Assert.assertEquals(dummyResponse.message, (actualData as Result.Success).data.message)
     }
     @Test
     fun `when register Return Error Should Not Null`()= runTest{
         val expectedStory = MutableLiveData<Result<ResponseMessage>>()
-        expectedStory.value = Result.Error("error")
+        expectedStory.value = Result.Error(dummyResponse.message)
 
         Mockito.`when`(authRepository.register(name, email, password)).thenReturn(expectedStory)
 
-        val actualStory = authViewModel.register(name, email, password).getOrAwaitValue()
+        val actualData = authViewModel.register(name, email, password).getOrAwaitValue()
         Mockito.verify(authRepository).register(name, email, password)
 
-        Assert.assertNotNull(actualStory)
-        Assert.assertTrue(actualStory is Result.Error)
-        Assert.assertEquals(dummyResponse.message, (actualStory as Result.Success).data.message)
+        Assert.assertNotNull(actualData)
+        Assert.assertTrue(actualData is Result.Error)
+        Assert.assertEquals(dummyResponse.message, (actualData as Result.Error).error)
     }
 
     @Test
     fun `when Set and get Email should Not Null then get data`()= runTest {
         val expectedEmail = "email@gmail.com"
 
-        Mockito.doNothing().`when`(authRepository).setEmail(email)
+        Mockito.lenient().doNothing().`when`(authRepository).setEmail(email)
         Mockito.`when`(authRepository.getEmail()).thenReturn(expectedEmail)
 
-        val actualStory = authViewModel.getEmail()
+        val actualData = authViewModel.getEmail()
         Mockito.verify(authRepository).getEmail()
 
-        Assert.assertNotNull(actualStory)
-        Assert.assertEquals(email, actualStory)
+        Assert.assertNotNull(actualData)
+        Assert.assertEquals(email, actualData)
     }
 
 }

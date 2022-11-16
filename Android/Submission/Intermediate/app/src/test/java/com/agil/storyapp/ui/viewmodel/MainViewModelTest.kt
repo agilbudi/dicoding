@@ -46,12 +46,12 @@ class MainViewModelTest{
     @Test
     fun `when Get Story Should Not Null, Return Success and same size`() = runTest {
         val data: PagingData<StoryEntity> = StoryPagingSourceTest.snapshot(dummyStory)
-        val expectedStory = MutableLiveData<Result<PagingData<StoryEntity>>>()
-        expectedStory.value = Result.Success(data)
+        val expectedData = MutableLiveData<Result<PagingData<StoryEntity>>>()
+        expectedData.value = Result.Success(data)
 
-        Mockito.`when`(storyRepository.getPageStory(token)).thenReturn(expectedStory)
+        Mockito.`when`(storyRepository.getPageStory(token)).thenReturn(expectedData)
 
-        val actualStory = mainViewModel.story(token).getOrAwaitValue()
+        val actualData = mainViewModel.story(token).getOrAwaitValue()
         Mockito.verify(storyRepository).getPageStory(token)
         val differ = Result.Success(AsyncPagingDataDiffer(
             diffCallback = StoryPagingAdapter.DIFF_CALLBACK,
@@ -60,22 +60,23 @@ class MainViewModelTest{
         ))
 
         Assert.assertNotNull(differ.data.snapshot())
-        Assert.assertTrue(actualStory is Result.Success)
-        differ.data.submitData((actualStory as Result.Success).data)
+        Assert.assertTrue(actualData is Result.Success)
+        differ.data.submitData((actualData as Result.Success).data)
         Assert.assertEquals(dummyStory, differ.data.snapshot())
         Assert.assertEquals(dummyStory.size, differ.data.snapshot().size)
     }
     @Test
     fun `when Get Story Should Not Null and Return Error`() = runTest {
-        val expectedStory = MutableLiveData<Result<PagingData<StoryEntity>>>()
-        expectedStory.value = Result.Error("error")
+        val expectedData = MutableLiveData<Result<PagingData<StoryEntity>>>()
+        expectedData.value = Result.Error("error")
 
-        Mockito.`when`(storyRepository.getPageStory(token)).thenReturn(expectedStory)
+        Mockito.`when`(storyRepository.getPageStory(token)).thenReturn(expectedData)
 
-        val actualStory = mainViewModel.story(token).getOrAwaitValue()
+        val actualData = mainViewModel.story(token).getOrAwaitValue()
         Mockito.verify(storyRepository).getPageStory(token)
 
-        Assert.assertNotNull(actualStory)
-        Assert.assertTrue(actualStory is Result.Error)
+        Assert.assertNotNull(actualData)
+        Assert.assertTrue(actualData is Result.Error)
+        Assert.assertEquals(dummyResponse.message, (actualData as Result.Error).error)
     }
 }

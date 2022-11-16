@@ -51,10 +51,10 @@ class AddStoryViewModelTest {
         val file = File(url)
         val imagePart = MultipartBody.Part.createFormData("name",file.name)
         val desc = description.toRequestBody("text/plain".toMediaType())
-        val expectedStory = MutableLiveData<Result<ResponseMessage>>()
-        expectedStory.value = Result.Success(dummyResponse)
+        val expectedData = MutableLiveData<Result<ResponseMessage>>()
+        expectedData.value = Result.Success(dummyResponse)
 
-        Mockito.`when`(addStoryRepository.uploadData(token,imagePart,desc, 0F,0F)).thenReturn(expectedStory)
+        Mockito.`when`(addStoryRepository.uploadData(token,imagePart,desc, 0F,0F)).thenReturn(expectedData)
 
         val actualData = addStoryViewModel.uploadStory(token,imagePart,desc, 0F,0F).getOrAwaitValue()
         Mockito.verify(addStoryRepository).uploadData(token,imagePart,desc, 0F,0F)
@@ -62,5 +62,23 @@ class AddStoryViewModelTest {
         Assert.assertNotNull(actualData)
         Assert.assertTrue(actualData is Result.Success)
         Assert.assertEquals(dummyResponse, (actualData as Result.Success).data)
+    }
+
+    @Test
+    fun `when uploadStory should Return Error, not null and match data`()= runTest {
+        val file = File(url)
+        val imagePart = MultipartBody.Part.createFormData("name",file.name)
+        val desc = description.toRequestBody("text/plain".toMediaType())
+        val expectedData = MutableLiveData<Result<ResponseMessage>>()
+        expectedData.value = Result.Error(dummyResponse.message)
+
+        Mockito.`when`(addStoryRepository.uploadData(token,imagePart,desc, 0F,0F)).thenReturn(expectedData)
+
+        val actualData = addStoryViewModel.uploadStory(token,imagePart,desc, 0F,0F).getOrAwaitValue()
+        Mockito.verify(addStoryRepository).uploadData(token,imagePart,desc, 0F,0F)
+
+        Assert.assertNotNull(actualData)
+        Assert.assertTrue(actualData is Result.Error)
+        Assert.assertEquals(dummyResponse.message, (actualData as Result.Error).error)
     }
 }

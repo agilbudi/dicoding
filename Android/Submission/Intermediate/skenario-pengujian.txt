@@ -5,28 +5,31 @@ Class MainViewModelTest:
 		-Memastikan data sesuai
 		-Memastikan data Jumlah sesuai yang diharapkan
 	b.Ketika Gagal memuat Data:
-		-Memastikan data tidak Null
+		-Memastikan data error tidak Null
 		-Memastikan mengembalikan data Result.Error
+		-Memastikan mengembalikan data error response
 
 Class MapViewModelTest:
 	fun listStory:
 	a.Ketika Berhasil memuat Data:
 		-Memastikan data tidak Null
 		-Memastikan mengembalikan Result.Success
-		-Memastikan data sesuai
+		-Memastikan data sesuai yang diharapkan
 		-Memastikan data Jumlah sesuai yang diharapkan
 	b.Ketika Gagal memuat Data:
-		-Memastikan data tidak Null
+		-Memastikan data error tidak Null
 		-Memastikan mengembalikan data Result.Error
+		-Memastikan mengembalikan data error response
 	fun markerStory:
 	a.Ketika Berhasil memuat Data:
 		-Memastikan data tidak Null
 		-Memastikan mengembalikan Result.Success
-		-Memastikan data sesuai
+		-Memastikan data sesuai yang diharapkan
 		-Memastikan data Jumlah sesuai yang diharapkan
 	b.Ketika Gagal memuat Data:
-		-Memastikan data tidak Null
+		-Memastikan data error tidak Null
 		-Memastikan mengembalikan data Result.Error
+		-Memastikan mengembalikan data error response
 
 Class AuthViewModelTest:
 	fun login:
@@ -35,14 +38,18 @@ Class AuthViewModelTest:
 		-Memastikan mengembalikan Result.Success
 		-Memastikan data sesuai yang diharapkan
 	b.Ketika Gagal memuat Data:
+		-Memastikan data error tidak Null
+		-Memastikan mengembalikan data Result.Error
 		-Memastikan mengembalikan data error response
 
 	fun register:
 	a.Ketika Berhasil memuat Data:
 		-Memastikan data tidak Null
 		-Memastikan mengembalikan Result.Success
-		-Memastikan data Jumlah sesuai yang diharapkan
+		-Memastikan data sesuai yang diharapkan
 	b.Ketika Gagal memuat Data:
+		-Memastikan data error tidak Null
+		-Memastikan mengembalikan data Result.Error
 		-Memastikan mengembalikan data error response
 
 	fun setEmail and getEmail:
@@ -56,4 +63,6 @@ Class AddStoryViewModelTest:
 		-Memastikan mengembalikan PagingData<StoryEntity>
 		-Memastikan data Jumlah sesuai yang diharapkan
 	b.Ketika Gagal memuat Data:
+		-Memastikan data error tidak Null
+		-Memastikan mengembalikan Result.Error
 		-Memastikan mengembalikan data error response

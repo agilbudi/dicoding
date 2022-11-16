@@ -34,6 +34,7 @@ class MapViewModelTest{
     private lateinit var mapRepository: MapStoryRepository
     private lateinit var mapViewModel: MapViewModel
     private val dummyStory = DataDummy.generatedDataDummyStory()
+    private val dummyResponse = DataDummy.generatedDataDummyResponse()
     private val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLVVGZVZhd3NjWUJMZDlxU0giLCJpYXQiOjE2NjUxNzQ1ODV9.lXmvbYwaJ6he7g0WDR6ZMMFFZxervNSMJdar5gXq4zo"
 
     @Before
@@ -66,7 +67,7 @@ class MapViewModelTest{
     @Test
     fun `when Get list Story Return Error Should Not Null`() = runTest{
         val expectedStory = MutableLiveData<Result<PagingData<StoryEntity>>>()
-        expectedStory.value = Result.Error("error")
+        expectedStory.value = Result.Error(dummyResponse.message)
 
         Mockito.`when`(mapRepository.getListOnMapStory(token)).thenReturn(expectedStory)
 
@@ -75,6 +76,7 @@ class MapViewModelTest{
 
         Assert.assertNotNull(actualStory)
         Assert.assertTrue(actualStory is Result.Error)
+        Assert.assertEquals(dummyResponse.message, (actualStory as Result.Error).error)
     }
 
 
@@ -94,9 +96,9 @@ class MapViewModelTest{
         Assert.assertEquals(dummyStory.size, actualStory.data.size)
     }
     @Test
-    fun `when Get map Story Return Error Should Not Null`() = runTest{
+    fun `when Get marker Story Return Error Should Not Null`() = runTest{
         val expectedStory = MutableLiveData<Result<List<StoryEntity>>>()
-        expectedStory.value = Result.Error("error")
+        expectedStory.value = Result.Error(dummyResponse.message)
 
         Mockito.`when`(mapRepository.getMapStory()).thenReturn(expectedStory)
 
@@ -105,5 +107,6 @@ class MapViewModelTest{
 
         Assert.assertNotNull(actualStory)
         Assert.assertTrue(actualStory is Result.Error)
+        Assert.assertEquals(dummyResponse.message, (actualStory as Result.Error).error)
     }
 }
