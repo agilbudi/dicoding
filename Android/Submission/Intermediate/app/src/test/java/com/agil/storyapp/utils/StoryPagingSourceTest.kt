@@ -1,11 +1,9 @@
 package com.agil.storyapp.utils
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.paging.*
 import androidx.recyclerview.widget.ListUpdateCallback
 import com.agil.storyapp.data.local.entity.StoryEntity
-import com.agil.storyapp.data.repository.Result
 
 @OptIn(ExperimentalPagingApi::class)
 class StoryPagingSourceTest : RemoteMediator<Int, LiveData<PagingData<StoryEntity>>>(){

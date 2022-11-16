@@ -113,7 +113,6 @@ class AuthViewModelTest {
 
         val actualStory = authViewModel.getEmail()
         Mockito.verify(authRepository).getEmail()
-        Mockito.verify(authRepository).setEmail(email)
 
         Assert.assertNotNull(actualStory)
         Assert.assertEquals(email, actualStory)
