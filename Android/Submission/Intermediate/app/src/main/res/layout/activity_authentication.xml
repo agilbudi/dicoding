@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AuthenticationActivity">
+    tools:context=".ui.AuthenticationActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fg_auth"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.agil.storyapp.auth.LoginFragment"
+        android:name="com.agil.storyapp.ui.auth.LoginFragment"
         tools:layout="@layout/fragment_login"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

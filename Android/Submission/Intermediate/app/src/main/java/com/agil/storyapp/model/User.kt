@@ -5,9 +5,11 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class User(
-    var userId: String?,
-    var name: String?,
-    var token: String?
-): Parcelable{
-    constructor(): this("","","")
+    var userId: String,
+    var name: String,
+    var token: String,
+    var lat: Float?,
+    var lon: Float?
+) : Parcelable {
+    constructor() : this("", "", "",null,null)
 }

@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/design_default_color_background"
-    tools:context=".auth.LoginFragment">
+    tools:context=".ui.auth.LoginFragment">
 
+    <ProgressBar
+        android:id="@+id/pb_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:theme="@style/Widget.AppCompat.ProgressBar"/>
     <ScrollView
         android:id="@+id/sv_form_login"
         android:layout_width="360dp"
@@ -22,11 +29,11 @@
                 android:id="@+id/tv_title_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSecondary"
                 android:text="@string/login"
                 android:textSize="36sp"
                 android:gravity="center"/>
-            <com.agil.storyapp.customview.EditTextNormal
+            <com.agil.storyapp.ui.customview.EditTextNormal
                 android:id="@+id/ed_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,7 +41,7 @@
                 android:layout_gravity="start"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"/>
-            <com.agil.storyapp.customview.EditTextPassword
+            <com.agil.storyapp.ui.customview.EditTextPassword
                 android:id="@+id/ed_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,7 +50,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:ems="10"/>
-            <com.agil.storyapp.customview.ButtonLogin
+            <com.agil.storyapp.ui.customview.ButtonLogin
                 android:id="@+id/btn_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,4 +68,5 @@
             android:layout_margin="16dp"
             android:text="@string/register"
             android:textAllCaps="false"/>
+
 </RelativeLayout>

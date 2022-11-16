@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.agil.storyapp">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature android:name="android.hardware.camera" />
@@ -19,20 +21,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StoryApp"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCAiQrkXqjMi1xiODCdXrcxxarLlfB5FoM" />
+
         <activity
-            android:name=".ImageViewerActivity"
+            android:name=".ui.MapStoryActivity"
+            android:exported="false"
+            android:label="@string/title_activity_map_story" />
+        <activity
+            android:name=".ui.ImageViewerActivity"
+            android:exported="false"
+            android:noHistory="true" />
+        <activity
+            android:name=".ui.CameraActivity"
             android:exported="false" />
         <activity
-            android:name=".CameraActivity"
+            android:name=".ui.AddStoryActivity"
             android:exported="false" />
         <activity
-            android:name=".AddStoryActivity"
+            android:name=".ui.DetailStoryActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailStoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AuthenticationActivity"
+            android:name=".ui.AuthenticationActivity"
             android:exported="false"
             android:noHistory="true" />
         <activity

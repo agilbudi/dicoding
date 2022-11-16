@@ -90,5 +90,14 @@
             motion:layout_constraintStart_toStartOf="parent"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp" />
+        <Constraint
+            android:id="@+id/pb_Add_Story"
+            motion:layout_constraintEnd_toStartOf="@+id/fab_get_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@id/fab_get_photo"
+            android:visibility="gone"
+            android:layout_marginEnd="24dp" >
+        </Constraint>
     </ConstraintSet>
 </MotionScene>

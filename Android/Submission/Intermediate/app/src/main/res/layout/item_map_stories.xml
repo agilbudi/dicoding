@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/iv_item_photo"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginVertical="8dp"
+        android:layout_marginHorizontal="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:src="@mipmap/ic_image_default"/>
+    <TextView
+        android:id="@+id/tv_item_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:gravity="center_vertical"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/iv_item_photo"
+        app:layout_constraintEnd_toStartOf="@id/ib_item_detail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_date"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_photo"
+        tools:text="@string/app_name"/>
+    <TextView
+        android:id="@+id/tv_item_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:textSize="13sp"
+        android:textColor="@color/grey_200"
+        android:text="date"
+        app:layout_constraintStart_toEndOf="@id/iv_item_photo"
+        app:layout_constraintEnd_toStartOf="@id/ib_item_detail"
+        app:layout_constraintTop_toTopOf="@id/iv_item_photo"/>
+    <ImageButton
+        android:id="@+id/ib_item_detail"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_detail"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_item_photo"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_photo"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
