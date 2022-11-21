@@ -52,15 +52,18 @@ Class AuthViewModelTest:
 		-Memastikan mengembalikan data Result.Error
 		-Memastikan mengembalikan data error response
 
-	fun setEmail and getEmail:
+	fun getEmail:
 	a.Ketika Berhasil memuat Data:
 		-Memastikan data tidak Null
 		-Memastikan data sesuai yang diharapkan
+	fun setEmail:
+	a. Ketika Gagal set Data:
+		-Memastikan throw error jika data null
 
 Class AddStoryViewModelTest:
 	a.Ketika Berhasil memuat Data:
 		-Memastikan data tidak Null
-		-Memastikan mengembalikan PagingData<StoryEntity>
+		-Memastikan mengembalikan Result.Success
 		-Memastikan data Jumlah sesuai yang diharapkan
 	b.Ketika Gagal memuat Data:
 		-Memastikan data error tidak Null

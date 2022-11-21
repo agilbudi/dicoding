@@ -72,7 +72,13 @@ class AuthRepository(private val apiService: ApiService) {
         return resultLogin
     }
 
-    fun setEmail(email: String) { myEmail = email }
+    fun setEmail(email: String?) {
+        if (email != null){
+            myEmail = email
+        }else {
+            throw IllegalArgumentException("data empty")
+        }
+    }
     fun getEmail(): String { return myEmail }
 
     private fun getGson(errorBody: ResponseBody?): String {

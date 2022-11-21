@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             adapter = storyPagingAdapter
         }
+        updateListStory(user)
         storyPagingAdapter.setOnItemClickCallback(object : StoryPagingAdapter.OnItemClickCallback{
             override fun onItemClicked(data: StoryEntity) {
                 selectedItem(data)
@@ -126,6 +127,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateListStory(user)
+    }
 
     companion object {
         val TAG: String = MainActivity::class.java.simpleName

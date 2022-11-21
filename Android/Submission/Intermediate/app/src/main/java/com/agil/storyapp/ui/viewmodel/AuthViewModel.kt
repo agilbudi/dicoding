@@ -12,7 +12,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     fun register(name: String, email: String, password: String) =
         authRepository.register(name, email, password)
 
-    fun setEmail(email: String)= authRepository.setEmail(email)
+    fun setEmail(email: String?)= authRepository.setEmail(email)
     fun getEmail() = authRepository.getEmail()
 }
 

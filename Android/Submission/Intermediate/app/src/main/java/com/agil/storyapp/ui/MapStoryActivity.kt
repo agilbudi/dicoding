@@ -391,6 +391,12 @@ class MapStoryActivity : AppCompatActivity(), OnMapReadyCallback,
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateListStory(user)
+        showMarker()
+    }
+
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         outState.putParcelable(KEY_LOCATION, lastKnownLocation)
         super.onSaveInstanceState(outState, outPersistentState)

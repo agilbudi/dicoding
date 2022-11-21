@@ -15,6 +15,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.function.ThrowingRunnable
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
@@ -106,10 +107,9 @@ class AuthViewModelTest {
     }
 
     @Test
-    fun `when Set and get Email should Not Null then get data`()= runTest {
+    fun `when get Email should Not Null then get data`()= runTest {
         val expectedEmail = "email@gmail.com"
 
-        Mockito.lenient().doNothing().`when`(authRepository).setEmail(email)
         Mockito.`when`(authRepository.getEmail()).thenReturn(expectedEmail)
 
         val actualData = authViewModel.getEmail()
@@ -119,4 +119,11 @@ class AuthViewModelTest {
         Assert.assertEquals(email, actualData)
     }
 
+    @Test
+    fun `Throw Error when set Email is null`()= runTest {
+        Mockito.`when`(authRepository.setEmail(null)).thenThrow(IllegalArgumentException::class.java)
+
+        val actualData = ThrowingRunnable { authViewModel.setEmail(null) }
+        Assert.assertThrows(IllegalArgumentException::class.java, actualData)
+    }
 }
