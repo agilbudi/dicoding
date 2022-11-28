@@ -107,7 +107,6 @@ class LoginFragment : Fragment(), TextWatcher, View.OnFocusChangeListener, View.
                     binding.btnLogin.isEnabled = true
                 }
             } else {
-                isErrorPassword(txtPassword.toString())
                 binding.btnLogin.isEnabled = false
             }
         } else {
@@ -125,13 +124,6 @@ class LoginFragment : Fragment(), TextWatcher, View.OnFocusChangeListener, View.
         }
     }
 
-    private fun isErrorPassword(password: String?) {
-        if (!password.isNullOrEmpty()) {
-            if (password.length < 6) {
-                binding.edLoginPassword.error = getString(R.string.required_password)
-            }
-        }
-    }
     private fun isValidEmail(email: CharSequence): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }

@@ -101,7 +101,6 @@ class RegisterFragment : Fragment(), View.OnFocusChangeListener, View.OnClickLis
                     binding.btnRegister.isEnabled = true
                 }
             } else {
-                isErrorPassword(txtPassword.toString())
                 binding.btnRegister.isEnabled = false
             }
         } else {
@@ -109,13 +108,6 @@ class RegisterFragment : Fragment(), View.OnFocusChangeListener, View.OnClickLis
         }
     }
 
-    private fun isErrorPassword(password: String?) {
-        if (!password.isNullOrEmpty()) {
-            if (password.length < 6) {
-                binding.edRegisterPassword.error = getString(R.string.required_password)
-            }
-        }
-    }
     private fun isValidEmail(email: CharSequence): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }

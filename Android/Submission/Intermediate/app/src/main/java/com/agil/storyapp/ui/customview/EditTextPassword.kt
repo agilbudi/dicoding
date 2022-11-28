@@ -13,6 +13,7 @@ import com.agil.storyapp.R
 
 class EditTextPassword : AppCompatEditText, View.OnTouchListener {
     private lateinit var clearButtonImage: Drawable
+    private var count = 0
 
     constructor(context: Context) : super(context) {
         init()
@@ -35,6 +36,9 @@ class EditTextPassword : AppCompatEditText, View.OnTouchListener {
         hint = "Password"
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
         minHeight = 48
+        if (count in 1..5){
+            error = "password must be 6 characters"
+        }
     }
 
     private fun init() {
@@ -42,6 +46,7 @@ class EditTextPassword : AppCompatEditText, View.OnTouchListener {
         setOnTouchListener(this)
         addTextChangedListener(doOnTextChanged  { text, _, _, _ ->
             if (text.toString().isNotEmpty()) showClearButton() else hideClearButton()
+            count = text.toString().length
         })
     }
 
