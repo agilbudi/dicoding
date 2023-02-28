@@ -1,17 +1,13 @@
 package com.agil.androidintermediate
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import com.agil.androidintermediate.advanced_ui.canvas.CanvasActivity
-import com.agil.androidintermediate.advanced_ui.custom_view.CustomViewActivity
-import com.agil.androidintermediate.advanced_ui.ticketing.TicketingActivity
-import com.agil.androidintermediate.advanced_ui.webview.WebViewActivity
-import com.agil.androidintermediate.advanced_ui.widget.WidgetActivity
+import androidx.annotation.StringRes
 import com.agil.androidintermediate.databinding.ActivityMainBinding
+import com.agil.androidintermediate.home.SectionsPagerAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,22 +15,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        with(binding){
-            btnCustomView.setOnClickListener(this@MainActivity)
-            btnTicketing.setOnClickListener(this@MainActivity)
-            btnCanvas.setOnClickListener(this@MainActivity)
-            btnWidget.setOnClickListener(this@MainActivity)
-            btnWebview.setOnClickListener(this@MainActivity)
-        }
+        val sectionPageAdapter = SectionsPagerAdapter(this)
+        val viewPager = binding.vpMain
+        val tabs = binding.tabs
+
+        viewPager.adapter = sectionPageAdapter
+        TabLayoutMediator(tabs, viewPager){ tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
+        supportActionBar?.elevation = 2f
     }
 
-    override fun onClick(v: View?) {
-        when(v?.id){
-            binding.btnCustomView.id -> startActivity(Intent(this, CustomViewActivity::class.java))
-            binding.btnTicketing.id -> startActivity(Intent(this, TicketingActivity::class.java))
-            binding.btnCanvas.id -> startActivity(Intent(this, CanvasActivity::class.java))
-            binding.btnWidget.id -> startActivity(Intent(this, WidgetActivity::class.java))
-            binding.btnWebview.id -> startActivity(Intent(this, WebViewActivity::class.java))
-        }
+    companion object{
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.page_advanced_ui,
+            R.string.page_animation
+        )
     }
 }

@@ -1,74 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="6dp"
-    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:theme="@style/Theme.AndroidIntermediate.HomePage">
-
-            <TextView
-                android:id="@+id/tv_materi_1"
-                android:theme="@style/Theme.AndroidIntermediate.MyText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/latihan_advanced_ui"
-                android:textColor="#D81B60"/>
-            <Button
-                android:id="@+id/btn_custom_view"
-                android:theme="@style/Theme.AndroidIntermediate.MyButton"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="#EC407A"
-                android:text="@string/custom_view"/>
-            <Button
-                android:id="@+id/btn_ticketing"
-                android:theme="@style/Theme.AndroidIntermediate.MyButton"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="#AF5171"
-                android:text="@string/ticketing_app"/>
-            <Button
-                android:id="@+id/btn_canvas"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="#D1309B"
-                android:text="@string/canvas"
-                android:theme="@style/Theme.AndroidIntermediate.MyButton"/>
-            <Button
-                android:id="@+id/btn_widget"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="#DA2E69"
-                android:text="@string/widget"
-                android:theme="@style/Theme.AndroidIntermediate.MyButton"/>
-            <Button
-                android:id="@+id/btn_webview"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="#A037BD"
-                android:text="@string/webview"
-                android:theme="@style/Theme.AndroidIntermediate.MyButton"/>
-
-            <TextView
-                android:id="@+id/tv_materi_2"
-                android:theme="@style/Theme.AndroidIntermediate.MyText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/latihan_animation"
-                android:textColor="#3246B8"/>
-        </LinearLayout>
-
-</ScrollView>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSecondaryVariant"
+        app:tabTextColor="@color/teal_500"
+        app:tabSelectedTextColor="@color/teal_700"
+        app:tabIndicatorColor="?attr/colorSecondary"
+        app:tabIndicatorGravity="stretch"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    </ScrollView>
+</LinearLayout>

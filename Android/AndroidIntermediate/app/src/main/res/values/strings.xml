@@ -25,6 +25,11 @@
 
     <string name="appwidget_text_2">STAR WARS BANNER</string>
     <string name="empty_text">NO DATA</string>
-    <string name="webview">WebView</string>
+    <string name="web_view">Web View</string>
     <string name="widget_ada_di_home_screen">Widget ada di Home Screen</string>
+
+    <string name="page_advanced_ui">Advanced UI</string>
+    <string name="page_animation">Animation</string>
+
+
 </resources>
