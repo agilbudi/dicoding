@@ -6,19 +6,18 @@ class RouterManager{
         this.response = response;
     }
 
-    getRoute(route){
-        return{
-            method: (method) =>{ init(route, method, this.request, this.response) }
-        }
+    proceed(){
+        init(this.request, this.response);
     }
 }
 
-function init(route, method, request, response) {
+function init(request, response) {
     const mPage = new PageManager(request, response);
     const page = mPage.getPage(mPage);
+    const { method, url } = request;
     let bookid = 0;
     
-    switch (route) {
+    switch (url) {
         case '/books':
             switch (method) {
                 case 'GET':
@@ -33,6 +32,7 @@ function init(route, method, request, response) {
             }
             break;
         case `/books/${bookid}`:
+            console.log(bookid);
             switch (method) {
                 case 'GET':
                     page.get().detail(bookid);

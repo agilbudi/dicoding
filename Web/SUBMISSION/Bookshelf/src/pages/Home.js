@@ -1,3 +1,5 @@
+const MHelper = require('../../utils/helper');
+
 const home = function(request, response){
     const { method } = request;
     const mHelper = new MHelper();
