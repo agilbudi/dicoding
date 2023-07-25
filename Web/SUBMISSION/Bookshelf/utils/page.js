@@ -1,5 +1,4 @@
-const MHelper = require('./helper');
-const {home} = require('../src/pages/Home');
+import {home} from '../src/pages/Home.js';
 
 class PageManager{
     constructor(request, response){
@@ -39,4 +38,4 @@ class PageManager{
 }
 
 
-module.exports = {PageManager};
+export {PageManager};

@@ -1,8 +1,9 @@
-const http = require('http');
-const {RouterManager} = require('../utils/router');
+import  * as http  from "http";
+import {RouterManager} from '../utils/router.js';
 
 const requestListener = (request, response) => {
-    response.setHeader('Content-Type', 'text/html');
+    response.setHeader('Content-Type', 'application/json');
+    response.setHeader('X-Powered-By', 'NodeJS');
     const route = new RouterManager(request, response);
     route.proceed();
 };

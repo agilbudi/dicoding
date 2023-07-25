@@ -1,4 +1,4 @@
-const {PageManager} = require('./page')
+import {PageManager} from './page.js';
 
 class RouterManager{
     constructor(request, response){
@@ -15,10 +15,11 @@ function init(request, response) {
     const mPage = new PageManager(request, response);
     const page = mPage.getPage(mPage);
     const { method, url } = request;
-    let bookid = 0;
+    let bookid = url.split('/books/');
     
     switch (url) {
         case '/books':
+            
             switch (method) {
                 case 'GET':
                     page.get().home();
@@ -33,19 +34,26 @@ function init(request, response) {
             break;
         case `/books/${bookid}`:
             console.log(bookid);
-            switch (method) {
-                case 'GET':
-                    page.get().detail(bookid);
-                    break;
-                case 'PUT':
-                    page.put().detail(bookid);
-                    break;
-                case 'DELETE':
-                    page.delete().remove(bookid);
-                    break;
-            
-                default:
-                    break;
+            if (bookid != '') {
+                switch (method) {
+                    case 'GET':
+                        page.get().detail(bookid);
+                        break;
+                    case 'PUT':
+                        page.put().detail(bookid);
+                        break;
+                    case 'DELETE':
+                        page.delete().remove(bookid);
+                        break;
+                
+                    default:
+                        break;
+                }
+            } else {
+                //400 Bad Request
+                mPage.response.statusCode = 400;
+                const errorPage = mPage.getPage(mPage);
+                errorPage.error();
             }
             break;
     
@@ -59,4 +67,4 @@ function init(request, response) {
     
 }
 
-module.exports = {RouterManager};
+export {RouterManager};
