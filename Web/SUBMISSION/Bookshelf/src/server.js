@@ -1,18 +1,21 @@
-import  * as http  from "http";
-import {RouterManager} from '../utils/router.js';
+import Hapi from '@hapi/hapi';
+import { router } from "./router.js";
 
-const requestListener = (request, response) => {
-    response.setHeader('Content-Type', 'application/json');
-    response.setHeader('X-Powered-By', 'NodeJS');
-    const route = new RouterManager(request, response);
-    route.proceed();
+const init = async () => {
+    const server = Hapi.server({
+        port: 9000,
+        host: 'localhost',
+        routes:{
+            cors:{
+                origin: ['*'],
+            }
+        }
+    });
+
+    server.route(router);
+
+    await server.start();
+    console.log(`Server berjalan pada ${server.info.uri}`);
 };
 
-const server = http.createServer(requestListener);
-const port = 9000;
-const host = 'localhost';
- 
-server.listen(port, host, () => {
-    console.log(`Server berjalan pada http://${host}:${port}`);
-});
-
+init();

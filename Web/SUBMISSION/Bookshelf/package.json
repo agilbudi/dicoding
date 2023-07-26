@@ -9,10 +9,13 @@
     "start-dev": "nodemon src/server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Agil Budi",
   "license": "ISC",
   "dependencies": {
-    "nanoid": "3",
+    "@hapi/hapi": "^21.3.2",
+    "nanoid": "3"
+  },
+  "devDependencies": {
     "nodemon": "^3.0.1"
   }
 }
