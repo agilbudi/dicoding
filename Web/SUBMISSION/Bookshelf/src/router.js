@@ -2,6 +2,7 @@ import {
     addBooksHandler,
     getAllBooksHandler,
     getBookByIdHandler,
+    editBookByIdHandler,
  } from "./handler.js";
 
 const router = [
@@ -30,9 +31,7 @@ const router = [
     {
         method: 'PUT',
         path: '/books/{bookId}',
-        handler: (request, h) => {
-            return 'Halaman tidak ditemukan';
-        },
+        handler: editBookByIdHandler,
     },
     {
         method: 'DELETE',
