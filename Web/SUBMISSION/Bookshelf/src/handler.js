@@ -47,17 +47,47 @@ const addBooksHandler = (request, h) => {
    return response;
 };
 
-const getAllBooksHandler = () => {
+const getAllBooksHandler = (request, h) => {
+   const { reading, finished, name } = request.query;
    const isEmpty = books.length < 1;
-   const newBook = [];
+   let newBook = [];
+
    if (!isEmpty) {
-      books.map( ({id, name, publisher}) => 
-         newBook.push({
+      newBook = books.map( ({id, name, publisher}) => 
+         Object.assign({}, {
             id: id,
             name: name,
             publisher: publisher
          })
       );
+
+      if (reading !== undefined) {
+         newBook =  books.filter((book) => book.reading == reading).map( ({id, name, publisher}) => 
+         Object.assign({}, {
+            id: id,
+            name: name,
+            publisher: publisher
+         })
+      );
+      }
+      if (finished !== undefined) {
+         newBook = books.filter((book) => book.finished == finished).map( ({id, name, publisher}) => 
+         Object.assign({}, {
+            id: id,
+            name: name,
+            publisher: publisher
+         })
+      );
+      }
+      if (name !== undefined) {
+         newBook = books.filter((book) => book.name.toLowerCase().includes(name.toLowerCase()) ).map( ({id, name, publisher}) => 
+         Object.assign({}, {
+            id: id,
+            name: name,
+            publisher: publisher
+         })
+      );
+      }
    }
 
    return {
@@ -160,6 +190,15 @@ const deleteBookByIdHandler = (request, h) =>{
    });
    response.code(404);
    return response;
+}
+
+const getQueryHandler = (request, h) =>{
+   const { reading, finished, name } = request.query;
+
+
+   if (reading !== undefined) {
+      
+   }
 }
 
 export {
