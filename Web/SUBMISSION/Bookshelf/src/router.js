@@ -3,6 +3,7 @@ import {
     getAllBooksHandler,
     getBookByIdHandler,
     editBookByIdHandler,
+    deleteBookByIdHandler,
  } from "./handler.js";
 
 const router = [
@@ -36,9 +37,7 @@ const router = [
     {
         method: 'DELETE',
         path: '/books/{bookId}',
-        handler: (request, h) => {
-            return 'Halaman tidak ditemukan';
-        },
+        handler: deleteBookByIdHandler,
     },
     {
         method: '*',

@@ -140,49 +140,30 @@ const editBookByIdHandler = (request, h) =>{
    return response;
 };
 
+const deleteBookByIdHandler = (request, h) =>{
+   const { bookId } = request.params;
+   const index = books.findIndex((book) => book.id === bookId);
 
+   if (index !== -1) {
+      books.splice(index,1);
+      const response = h.response({
+         status: 'success',
+         message: 'Buku berhasil dihapus'
+      });
+      response.code(200);
+      return response;
+   }
 
+   const response = h.response({
+      status: 'fail',
+      message: 'Buku gagal dihapus. Id tidak ditemukan'
+   });
+   response.code(404);
+   return response;
+}
 
-
-
-
-
-
-
-// const errorDataHandler = (name='', year=null, author='', summary='', publisher='', pageCount=null, readPage=null, reading=null) =>{
-//    let statusError = true;
-//    let onError = '';
-    
-//    if (name === '') {
-//       onError = 'nama';
-//    } else if (year === null) {
-//       onError = 'tahun';
-//    } else if (author === ''){
-//       onError = 'penulis';
-//    } else if (summary === '') {
-//       onError = 'ringkasan';
-//    } else if (publisher === '') {
-//       onError = 'penerbit';
-//    } else if (pageCount === null) {
-//       onError = 'jumlah halaman';
-//    } else if (readPage === null) {
-//       onError = 'halaman dibaca';
-//    } else if (reading === null) {
-//       onError = 'reading';
-//    } else{
-//       statusError = !statusError;
-//    }
-//    if (!statusError) {
-//       if (pageCount < readPage) {
-//          onError = 'readPage tidak boleh lebih besar dari pageCount';
-//          statusError = !statusError;
-//       }
-//    } else {
-//       onError = `Mohon isi ${onError} buku`;
-//    }
-
-//    const errorMessage = statusError? `Gagal menambahkan buku. ${onError}`: null;
-//    return{ statusError, errorMessage };
-// };
-
-export {addBooksHandler, getAllBooksHandler, getBookByIdHandler, editBookByIdHandler};
+export {
+   addBooksHandler, getAllBooksHandler, 
+   getBookByIdHandler, editBookByIdHandler,
+   deleteBookByIdHandler
+};

@@ -64,4 +64,4 @@ function requiredData(book){
    return{ status, onError };
  };
 
- export {BooksRequestHandler, errorDataHandler};
+ export {errorDataHandler};
