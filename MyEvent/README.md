@@ -1,2 +1,0 @@
-# MyEvent
-Submit pertama
