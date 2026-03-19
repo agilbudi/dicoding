@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">EventApp</string>
+    <string name="title_activity_home_nav">Home Navigation</string>
+    <string name="title_home">Home</string>
+    <string name="title_finished">Finished</string>
+    <string name="title_upcoming">Upcoming</string>
 </resources>
