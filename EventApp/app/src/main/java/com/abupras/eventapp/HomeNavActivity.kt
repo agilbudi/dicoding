@@ -1,11 +1,10 @@
 package com.abupras.eventapp
 
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.abupras.eventapp.databinding.ActivityHomeNavBinding
 
@@ -18,18 +17,15 @@ class HomeNavActivity : AppCompatActivity() {
 
         binding = ActivityHomeNavBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        showLoading(true)
 
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_home_nav)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_upcoming, R.id.navigation_finished
-            )
-        )
-        //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    fun showLoading(isLoading: Boolean){
+            binding.pgBarHome.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }
