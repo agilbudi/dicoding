@@ -20,8 +20,12 @@ class UpcomingViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _title = MutableLiveData<String>()
+    val title : LiveData<String> = _title
+
     init {
         1.getNewEvent()
+        _title.value = "Upcoming Events"
     }
 
     private fun Int.getNewEvent() {

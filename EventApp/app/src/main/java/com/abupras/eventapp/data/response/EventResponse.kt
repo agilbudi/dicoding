@@ -25,20 +25,8 @@ data class ListEventsItem(
 	@field:SerializedName("mediaCover")
 	val mediaCover: String,
 
-	@field:SerializedName("registrants")
-	val registrants: Int,
-
 	@field:SerializedName("imageLogo")
 	val imageLogo: String,
-
-	@field:SerializedName("link")
-	val link: String,
-
-	@field:SerializedName("description")
-	val description: String,
-
-	@field:SerializedName("ownerName")
-	val ownerName: String,
 
 	@field:SerializedName("cityName")
 	val cityName: String,
@@ -54,9 +42,6 @@ data class ListEventsItem(
 
 	@field:SerializedName("beginTime")
 	val beginTime: String,
-
-	@field:SerializedName("endTime")
-	val endTime: String,
 
 	@field:SerializedName("category")
 	val category: String

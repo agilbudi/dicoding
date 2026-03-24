@@ -26,14 +26,13 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        //val layoutManager = LinearLayoutManager(requireContext())
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        //val itemDecoration = DividerItemDecoration(requireContext(), layoutManager.orientation)
         binding.rvHome.layoutManager = layoutManager
-        //binding.rvHome.addItemDecoration(itemDecoration)
         val adapter = HomeAdapter()
 
-
+        homeViewModel.title.observe(viewLifecycleOwner){
+            (activity as? HomeNavActivity)?.setTitle(it)
+        }
         homeViewModel.isLoading.observe(viewLifecycleOwner){
             (activity as? HomeNavActivity)?.showLoading(it)
         }
@@ -44,6 +43,9 @@ class HomeFragment : Fragment() {
         }
 
         binding.rvHome.adapter = adapter
+        binding.svHome.setOnClickListener {
+            binding.svHome.isIconified = false
+        }
         return root
     }
 

@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
@@ -33,8 +32,6 @@ class UpcomingFragment : Fragment() {
 
     private var _binding: FragmentUpcomingBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -51,9 +48,13 @@ class UpcomingFragment : Fragment() {
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvUpcoming.layoutManager = layoutManager
 
+        upcomingViewModel.title.observe(viewLifecycleOwner){
+            (activity as? HomeNavActivity)?.setTitle(it)
+        }
         upcomingViewModel.isLoading.observe(viewLifecycleOwner){
             (activity as? HomeNavActivity)?.showLoading(it)
         }
+
         val adapter = EventAdapter(
             bindingFactory = ItemEventBinding::inflate,
             bind = { binding, item ->
@@ -61,7 +62,7 @@ class UpcomingFragment : Fragment() {
             },
             onItemClick = { event ->
                 val intent = Intent(requireContext(), DetailActivity::class.java)
-                intent.putExtra(EVENTS, event)
+                intent.putExtra(EVENTS, event.id)
                 startActivity(intent)
                 //click to detail
             },
@@ -87,6 +88,7 @@ class UpcomingFragment : Fragment() {
             tvCategory.text = item.category
             tvCityTime.text = "${item.cityName} • ${changeFormatDate(item.beginTime)}"
             tvQuota.text = "Quota: ${item.quota} left"
+            tvSummary.text = item.summary
             glide.load(item.imageLogo).into(ivImageLogo)
             glide.asBitmap()
                 .load(item.mediaCover)
@@ -110,14 +112,14 @@ class UpcomingFragment : Fragment() {
                         dataSource: DataSource,
                         isFirstResource: Boolean
                     ): Boolean {
-                        ivMediaCover.setImageBitmap(resource)
-                        val palette = getPalette(resource)
-                        val color = palette.vibrantSwatch?.rgb ?: COLOR_DEFAULT
+                        val palette = getPalette(resource).vibrantSwatch
+                        val color = palette?.rgb ?: COLOR_DEFAULT
                         layoutItem.setBackgroundColor(color)
-                        val textColor = palette.vibrantSwatch?.titleTextColor ?: Color.BLACK
+                        val textColor = palette?.titleTextColor ?: Color.BLACK
                         tvName.setTextColor(textColor)
                         tvCityTime.setTextColor(textColor)
                         tvQuota.setTextColor(textColor)
+                        tvSummary.setTextColor(textColor)
                         return false
                     }
 

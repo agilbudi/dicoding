@@ -18,8 +18,12 @@ class HomeViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _title = MutableLiveData<String>()
+    val title : LiveData<String> = _title
+
     init {
         getAllEvents()
+        _title.value = "All Events Here"
     }
     private fun getAllEvents() {
         _isLoading.value = true

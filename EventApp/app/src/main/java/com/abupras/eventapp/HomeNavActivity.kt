@@ -25,6 +25,9 @@ class HomeNavActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+    fun setTitle(title: String){
+        binding.tvHomeTitle.text = title
+    }
     fun showLoading(isLoading: Boolean){
             binding.pgBarHome.visibility = if (isLoading) View.VISIBLE else View.GONE
     }

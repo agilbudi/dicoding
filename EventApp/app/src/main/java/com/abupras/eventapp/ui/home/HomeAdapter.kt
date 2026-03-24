@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.abupras.eventapp.R
 import com.abupras.eventapp.data.response.ListEventsItem
-import com.abupras.eventapp.databinding.ItemEventBinding
+import com.abupras.eventapp.databinding.ItemHomeBinding
 import com.abupras.eventapp.ui.home.HomeAdapter.MyViewHolder
 import com.abupras.eventapp.utils.changeFormatDate
 import com.abupras.eventapp.utils.getPalette
@@ -24,7 +24,7 @@ import com.bumptech.glide.request.target.Target
 class HomeAdapter: ListAdapter<ListEventsItem, MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = ItemEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 
@@ -33,7 +33,7 @@ class HomeAdapter: ListAdapter<ListEventsItem, MyViewHolder>(DIFF_CALLBACK) {
         holder.bind(event)
     }
 
-    class MyViewHolder(private val binding: ItemEventBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: ItemHomeBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(event: ListEventsItem){
             val glide = Glide.with(itemView.context)
@@ -42,10 +42,8 @@ class HomeAdapter: ListAdapter<ListEventsItem, MyViewHolder>(DIFF_CALLBACK) {
                 tvName.text = event.name
                 tvCategory.text = event.category
                 tvCityTime.text = "${event.cityName} • ${changeFormatDate(event.beginTime)}"
-                tvQuota.text = "Quota: ${event.quota} left"
-                glide.load(event.imageLogo).into(ivImageLogo)
                 glide.asBitmap()
-                    .load(event.mediaCover)
+                    .load(event.imageLogo)
                     .listener(object : RequestListener<Bitmap>{
                         @SuppressLint("UseCompatLoadingForDrawables")
                         override fun onLoadFailed(
@@ -73,7 +71,6 @@ class HomeAdapter: ListAdapter<ListEventsItem, MyViewHolder>(DIFF_CALLBACK) {
                             val textColor = palette.vibrantSwatch?.titleTextColor ?: Color.BLACK
                             tvName.setTextColor(textColor)
                             tvCityTime.setTextColor(textColor)
-                            tvQuota.setTextColor(textColor)
                             return false
                         }
 
