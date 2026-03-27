@@ -22,6 +22,11 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 
 class HomeAdapter: ListAdapter<ListEventsItem, MyViewHolder>(DIFF_CALLBACK) {
+    private var onItemClickCallback: ((ListEventsItem) -> Unit)? = null
+
+    fun setOnItemClickCallback(onItemClickCallback: (ListEventsItem) -> Unit){
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -31,6 +36,9 @@ class HomeAdapter: ListAdapter<ListEventsItem, MyViewHolder>(DIFF_CALLBACK) {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
+        holder.itemView.setOnClickListener {
+            onItemClickCallback?.invoke(event)
+        }
     }
 
     class MyViewHolder(private val binding: ItemHomeBinding) : RecyclerView.ViewHolder(binding.root) {

@@ -12,6 +12,6 @@ interface ApiService {
     @GET("events")
     fun getEvents(@Query("active") active: Int): Call<EventResponse>
 
-    @GET("events/:{id}")
+    @GET("events/{id}")
     fun getDetail(@Path("id") id: Int): Call<DetailEventResponse>
 }

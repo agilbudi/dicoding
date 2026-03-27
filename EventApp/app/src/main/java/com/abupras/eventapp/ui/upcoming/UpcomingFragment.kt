@@ -40,20 +40,13 @@ class UpcomingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val upcomingViewModel =
-            ViewModelProvider(this).get(UpcomingViewModel::class.java)
+            ViewModelProvider(this)[UpcomingViewModel::class.java]
 
         _binding = FragmentUpcomingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvUpcoming.layoutManager = layoutManager
-
-        upcomingViewModel.title.observe(viewLifecycleOwner){
-            (activity as? HomeNavActivity)?.setTitle(it)
-        }
-        upcomingViewModel.isLoading.observe(viewLifecycleOwner){
-            (activity as? HomeNavActivity)?.showLoading(it)
-        }
 
         val adapter = EventAdapter(
             bindingFactory = ItemEventBinding::inflate,
@@ -62,17 +55,36 @@ class UpcomingFragment : Fragment() {
             },
             onItemClick = { event ->
                 val intent = Intent(requireContext(), DetailActivity::class.java)
-                intent.putExtra(EVENTS, event.id)
+                intent.putExtra(DetailActivity.EVENTS, event.id)
                 startActivity(intent)
                 //click to detail
             },
             diffCallback = EventDiffCallback
         )
 
+        upcomingViewModel.getNewEvent(EVENT_UPCOMING)
+        upcomingViewModel.title.observe(viewLifecycleOwner){
+            (activity as? HomeNavActivity)?.setTitle(it)
+        }
+        upcomingViewModel.isLoading.observe(viewLifecycleOwner){
+            (activity as? HomeNavActivity)?.showLoading(it)
+        }
         upcomingViewModel.listEvents.observe(viewLifecycleOwner){ events ->
-            if (events != null){
-                adapter.submitList(events)
+            if (events != null) {
+                if (events.error) {
+                    with(binding){
+                        showError(true)
+                        tvUpcomingErrorMessage.text = events.message
+                    }
+                }else {
+                    showError(false)
+                    adapter.submitList(events.listEvents)
+                }
             }
+        }
+        // Logika tombol retry
+        binding.btnUpcomingRetry.setOnClickListener {
+            upcomingViewModel.getNewEvent(EVENT_UPCOMING)
         }
 
         binding.rvUpcoming.adapter = adapter
@@ -80,6 +92,17 @@ class UpcomingFragment : Fragment() {
         return root
     }
 
+    private fun showError(isError: Boolean){
+        with(binding){
+            if (isError){
+                tvUpcomingErrorMessage.visibility = View.VISIBLE
+                btnUpcomingRetry.visibility = View.VISIBLE
+            }else{
+                tvUpcomingErrorMessage.visibility = View.GONE
+                btnUpcomingRetry.visibility = View.GONE
+            }
+        }
+    }
     @SuppressLint("SetTextI18n")
     private fun setDataView(binding: ItemEventBinding, item: ListEventsItem) {
         val glide = Glide.with(requireContext())
@@ -131,7 +154,7 @@ class UpcomingFragment : Fragment() {
     companion object{
         private const val COLOR_DEFAULT = Color.LTGRAY
         private const val TAG = "UpcomingFragment"
-        private const val EVENTS = "EVENTS"
+        private const val EVENT_UPCOMING = 1
         object EventDiffCallback : DiffUtil.ItemCallback<ListEventsItem>() {
             override fun areItemsTheSame(
                 oldItem: ListEventsItem,

@@ -5,15 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.abupras.eventapp.data.response.EventResponse
-import com.abupras.eventapp.data.response.ListEventsItem
 import com.abupras.eventapp.data.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class FinishedViewModel : ViewModel() {
-    private val _listEvents = MutableLiveData<List<ListEventsItem>>()
-    val listEvents: LiveData<List<ListEventsItem>> = _listEvents
+    private val _listEvents = MutableLiveData<EventResponse?>()
+    val listEvents: LiveData<EventResponse?> = _listEvents
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -22,28 +21,27 @@ class FinishedViewModel : ViewModel() {
     val title : LiveData<String> = _title
 
     init {
-        0.getFinishedEvent()
         _title.value = "Events Finished"
     }
 
-    private fun Int.getFinishedEvent(){
+    fun getFinishedEvent(active: Int){
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getEvents(this)
+        val client = ApiConfig.getApiService().getEvents(active)
         client.enqueue(object : Callback<EventResponse>{
             override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
                 _isLoading.value = false
                 val responseBody = response.body()
                 if (response.isSuccessful){
-                    if (responseBody != null && !responseBody.error){
-                        _listEvents.value = responseBody.listEvents
-                    }
+                    _listEvents.value = response.body()
                 }else{
-                    Log.e(TAG, "onFailure: ${responseBody?.message}")
+                    _listEvents.value = response.body()
+                    Log.e(TAG, "onRequest: ${responseBody?.message}")
                 }
             }
 
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
                 _isLoading.value = false
+                _listEvents.value = EventResponse(emptyList(),true, t.message.toString())
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })

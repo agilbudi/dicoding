@@ -12,8 +12,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeViewModel : ViewModel() {
-    private val _listEvents = MutableLiveData<List<ListEventsItem>>()
-    val listEvents: LiveData<List<ListEventsItem>> = _listEvents
+    private val _listEvents = MutableLiveData<EventResponse?>()
+    val listEvents: LiveData<EventResponse?> = _listEvents
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -22,30 +22,26 @@ class HomeViewModel : ViewModel() {
     val title : LiveData<String> = _title
 
     init {
-        getAllEvents()
         _title.value = "All Events Here"
     }
-    private fun getAllEvents() {
+    fun getAllEvents() {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getAllEvents()
         client.enqueue(object : Callback<EventResponse> {
-            override fun onResponse(
-                call: Call<EventResponse>,
-                response: Response<EventResponse>
-            ) {
+            override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
                 _isLoading.value = false
                 val responseBody = response.body()
                 if (response.isSuccessful) {
-                    if (responseBody != null && !responseBody.error) {
-                        _listEvents.value = responseBody.listEvents
-                    }
+                    _listEvents.value = response.body()
                 }else{
-                    Log.e(TAG, "onFailure: ${responseBody?.message}")
+                    _listEvents.value = response.body()
+                    Log.e(TAG, "onRequest: ${responseBody?.message}")
                 }
             }
 
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
                 _isLoading.value = false
+                _listEvents.value = EventResponse(emptyList(),true, t.message.toString())
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })

@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
@@ -41,7 +40,7 @@ class FinishedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val finishedViewModel =
-            ViewModelProvider(this).get(FinishedViewModel::class.java)
+            ViewModelProvider(this)[FinishedViewModel::class.java]
 
         _binding = FragmentFinishedBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -49,35 +48,57 @@ class FinishedFragment : Fragment() {
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvFinished.layoutManager = layoutManager
 
-        finishedViewModel.title.observe(viewLifecycleOwner){
-            (activity as? HomeNavActivity)?.setTitle(it)
-        }
-        finishedViewModel.isLoading.observe(viewLifecycleOwner){
-            (activity as? HomeNavActivity)?.showLoading(it)
-        }
-
-        val adapte = EventAdapter(
+        val adapter = EventAdapter(
             bindingFactory = ItemEventBinding::inflate,
             bind = { binding, item ->
                 setDataView(binding, item)
             },
             onItemClick = { event ->
                 val intent = Intent(requireContext(), DetailActivity::class.java)
-                intent.putExtra(EVENTS, event.id)
+                intent.putExtra(DetailActivity.EVENTS, event.id)
                 startActivity(intent)
             },
             diffCallback = EventDiffCallback
         )
-
+        finishedViewModel.getFinishedEvent(EVENT_FINISHED)
+        finishedViewModel.title.observe(viewLifecycleOwner){
+            (activity as? HomeNavActivity)?.setTitle(it)
+        }
+        finishedViewModel.isLoading.observe(viewLifecycleOwner){
+            (activity as? HomeNavActivity)?.showLoading(it)
+        }
         finishedViewModel.listEvents.observe(viewLifecycleOwner){ events ->
             if (events != null){
-                adapte.submitList(events)
+                if (events.error){
+                    with(binding){
+                        showError(true)
+                        tvFinishedErrorMessage.text = events.message
+                    }
+                }else{
+                    showError(false)
+                    adapter.submitList(events.listEvents)
+                }
             }
         }
+        binding.btnFinishedRetry.setOnClickListener {
+            finishedViewModel.getFinishedEvent(EVENT_FINISHED)
+        }
 
-        binding.rvFinished.adapter = adapte
+        binding.rvFinished.adapter = adapter
 
         return root
+    }
+
+    private fun showError(isError: Boolean){
+        with(binding) {
+            if (isError) {
+                tvFinishedErrorMessage.visibility = View.VISIBLE
+                btnFinishedRetry.visibility = View.VISIBLE
+            }else{
+                tvFinishedErrorMessage.visibility = View.GONE
+                btnFinishedRetry.visibility = View.GONE
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -130,7 +151,7 @@ class FinishedFragment : Fragment() {
     companion object{
         private const val COLOR_DEFAULT = Color.LTGRAY
         private const val TAG = "FinishedFragment"
-        private const val EVENTS = "EVENTS"
+        private const val EVENT_FINISHED = 0
         object EventDiffCallback : DiffUtil.ItemCallback<ListEventsItem>() {
             override fun areItemsTheSame(
                 oldItem: ListEventsItem,

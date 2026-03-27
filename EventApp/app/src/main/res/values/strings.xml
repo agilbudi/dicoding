@@ -4,4 +4,7 @@
     <string name="title_home">Home</string>
     <string name="title_finished">Finished</string>
     <string name="title_upcoming">Upcoming</string>
+    <string name="refresh">refresh</string>
+    <string name="browse">Browse</string>
+    <string name="deskripsi">Deskripsi</string>
 </resources>
