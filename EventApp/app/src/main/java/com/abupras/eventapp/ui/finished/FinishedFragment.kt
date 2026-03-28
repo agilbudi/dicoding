@@ -34,6 +34,7 @@ class FinishedFragment : Fragment() {
 
     private val binding get() = _binding!!
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,7 +61,7 @@ class FinishedFragment : Fragment() {
             },
             diffCallback = EventDiffCallback
         )
-        finishedViewModel.getFinishedEvent(EVENT_FINISHED)
+        //finishedViewModel.getFinishedEvent(EVENT_FINISHED)
         finishedViewModel.title.observe(viewLifecycleOwner){
             (activity as? HomeNavActivity)?.setTitle(it)
         }
@@ -71,6 +72,7 @@ class FinishedFragment : Fragment() {
             if (events != null){
                 if (events.error){
                     with(binding){
+                        adapter.notifyDataSetChanged()
                         showError(true)
                         tvFinishedErrorMessage.text = events.message
                     }

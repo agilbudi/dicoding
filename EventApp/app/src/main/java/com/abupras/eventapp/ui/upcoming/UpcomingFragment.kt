@@ -62,7 +62,6 @@ class UpcomingFragment : Fragment() {
             diffCallback = EventDiffCallback
         )
 
-        upcomingViewModel.getNewEvent(EVENT_UPCOMING)
         upcomingViewModel.title.observe(viewLifecycleOwner){
             (activity as? HomeNavActivity)?.setTitle(it)
         }

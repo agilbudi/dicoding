@@ -21,6 +21,7 @@ class UpcomingViewModel : ViewModel() {
     val title : LiveData<String> = _title
 
     init {
+        getNewEvent(1)
         _title.value = "Upcoming Events"
     }
 

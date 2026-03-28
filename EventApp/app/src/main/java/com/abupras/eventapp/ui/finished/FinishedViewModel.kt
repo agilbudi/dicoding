@@ -21,6 +21,7 @@ class FinishedViewModel : ViewModel() {
     val title : LiveData<String> = _title
 
     init {
+        getFinishedEvent(0)
         _title.value = "Events Finished"
     }
 

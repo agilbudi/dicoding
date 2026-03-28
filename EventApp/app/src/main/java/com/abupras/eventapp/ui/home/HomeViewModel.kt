@@ -22,6 +22,7 @@ class HomeViewModel : ViewModel() {
     val title : LiveData<String> = _title
 
     init {
+        getAllEvents()
         _title.value = "All Events Here"
     }
     fun getAllEvents() {
@@ -46,6 +47,29 @@ class HomeViewModel : ViewModel() {
             }
         })
 
+    }
+
+    fun getSearchEvent(active: Int, query: String){
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getSearch(active, query)
+        client.enqueue(object : Callback<EventResponse> {
+            override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
+                _isLoading.value = false
+                val responseBody = response.body()
+                if (response.isSuccessful) {
+                    _listEvents.value = response.body()
+                }else{
+                    _listEvents.value = response.body()
+                    Log.e(TAG, "onRequest: ${responseBody?.message}")
+                }
+            }
+
+            override fun onFailure(call: Call<EventResponse>, t: Throwable) {
+                _isLoading.value = false
+                _listEvents.value = EventResponse(emptyList(),true, t.message.toString())
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
     }
 
     companion object{

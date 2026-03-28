@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -32,7 +33,6 @@ class HomeFragment : Fragment() {
         binding.rvHome.layoutManager = layoutManager
         val adapter = HomeAdapter()
 
-        homeViewModel.getAllEvents()
         homeViewModel.title.observe(viewLifecycleOwner){
             (activity as? HomeNavActivity)?.setTitle(it)
         }
@@ -64,6 +64,26 @@ class HomeFragment : Fragment() {
         binding.svHome.setOnClickListener {
             binding.svHome.isIconified = false
         }
+        binding.svHome.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrEmpty()) {
+                    homeViewModel.getSearchEvent(-1, query)
+                    with(binding) {
+                        svHome.clearFocus() // Menutup keyboard setelah tekan enter
+                        fabHomeAllEvent.visibility = View.VISIBLE
+                        fabHomeAllEvent.setOnClickListener {
+                            homeViewModel.getAllEvents()
+                            fabHomeAllEvent.visibility = View.GONE
+                        }
+                    }
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
         return root
     }
 
