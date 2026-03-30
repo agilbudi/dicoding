@@ -22,4 +22,9 @@
         android:name="com.abupras.eventapp.ui.finished.FinishedFragment"
         android:label="@string/title_finished"
         tools:layout="@layout/fragment_upcoming" />
+    <fragment
+        android:id="@+id/navigation_favorite"
+        android:name="com.abupras.eventapp.ui.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
 </navigation>

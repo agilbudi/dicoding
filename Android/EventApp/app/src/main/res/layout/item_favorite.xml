@@ -11,9 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/layout_item_favorite"
-        android:background="?android:attr/colorBackground"
-        android:padding="10dp">
+        android:id="@+id/layout_item_favorite">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_favorite"
@@ -40,39 +38,35 @@
             tools:src="@tools:sample/backgrounds/scenic"
             tools:ignore="ContentDescription" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_favorite_logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="-30dp"
-            android:padding="2dp"
-            android:background="@android:color/white"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_favorite_cover"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.SmallComponent"
-            tools:src="@tools:sample/backgrounds/scenic"/>
-
         <TextView
             android:id="@+id/tv_favorite_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_margin="4dp"
             android:background="@drawable/bg_category_badge"
             android:paddingHorizontal="8dp"
             android:paddingVertical="2dp"
             android:textColor="@android:color/white"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_favorite_cover"
+            app:layout_constraintBottom_toTopOf="@+id/tv_favorite_name"
             tools:text="Technology" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white_50"
+            app:layout_constraintTop_toTopOf="@id/tv_favorite_name"
+            app:layout_constraintBottom_toBottomOf="@id/iv_favorite_cover"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/tv_favorite_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="12dp"
+            android:paddingVertical="4dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="?android:attr/colorForeground"
@@ -80,8 +74,53 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_favorite_logo"
+            app:layout_constraintBottom_toTopOf="@id/tv_favorite_city_time"
             tools:text="Event Name Example" />
+
+        <TextView
+            android:id="@+id/tv_favorite_city_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="12dp"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintEnd_toStartOf="@id/tv_favorite_quota"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/iv_favorite_cover"
+            tools:text="Jakarta • 20 Oct 2023, 10:00" />
+
+        <TextView
+            android:id="@+id/tv_favorite_quota"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:textSize="10sp"
+            app:layout_constraintHorizontal_weight="0.3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_favorite_city_time"
+            app:layout_constraintTop_toTopOf="@id/tv_favorite_city_time"
+            app:layout_constraintBottom_toBottomOf="@id/tv_favorite_city_time"
+            tools:text="Quota: 50 left"
+            tools:ignore="SmallSp" />
+
+        <ImageView
+            android:id="@+id/ib_favorite_expand"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_margin="4dp"
+            android:src="@drawable/selector_dropdown"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitEnd"
+            app:layout_constraintTop_toBottomOf="@id/iv_favorite_cover"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/pink"
+            tools:ignore="ContentDescription,RtlSymmetry"/>
 
         <TextView
             android:id="@+id/tv_favorite_summary"
@@ -93,41 +132,13 @@
             android:textSize="14sp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_favorite_name"
+            app:layout_constraintTop_toBottomOf="@id/iv_favorite_cover"
             tools:text="@tools:sample/lorem/random" />
 
-        <TextView
-            android:id="@+id/tv_favorite_city_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="12sp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            app:layout_constraintHorizontal_weight="0.65"
-            app:layout_constraintEnd_toStartOf="@id/tv_favorite_quota"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_favorite_summary"
-            tools:text="Jakarta • 20 Oct 2023, 10:00" />
-
-        <TextView
-            android:id="@+id/tv_favorite_quota"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:paddingHorizontal="4dp"
-            android:textStyle="italic"
-            android:textSize="10sp"
-            app:layout_constraintHorizontal_weight="0.35"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_favorite_city_time"
-            app:layout_constraintTop_toTopOf="@id/tv_favorite_city_time"
-            tools:text="Quota: 50 left"
-            tools:ignore="SmallSp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>

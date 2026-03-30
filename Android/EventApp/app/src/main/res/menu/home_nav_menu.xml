@@ -7,12 +7,17 @@
         android:title="@string/title_finished" />
 
     <item
+        android:id="@+id/navigation_upcoming"
+        android:icon="@drawable/icon_upcoming_event_24"
+        android:title="@string/title_upcoming" />
+
+    <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/icon_dashboard_24"
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_upcoming"
-        android:icon="@drawable/icon_upcoming_event_24"
-        android:title="@string/title_upcoming" />
+        android:id="@+id/navigation_favorite"
+        android:icon="@drawable/icon_favorite_24"
+        android:title="@string/title_favorite"/>
 </menu>

@@ -9,4 +9,5 @@
     <string name="deskripsi">Deskripsi</string>
     <string name="all_event">All Event</string>
     <string name="desc_favorite_button">Favorite Button</string>
+    <string name="title_favorite">Favorite</string>
 </resources>
