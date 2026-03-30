@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">EventApp</string>
+    <string name="title_activity_home_nav">Home Navigation</string>
+    <string name="title_home">Home</string>
+    <string name="title_finished">Finished</string>
+    <string name="title_upcoming">Upcoming</string>
+    <string name="refresh">refresh</string>
+    <string name="browse">Browse</string>
+    <string name="deskripsi">Deskripsi</string>
+    <string name="all_event">All Event</string>
+    <string name="desc_favorite_button">Favorite Button</string>
+</resources>

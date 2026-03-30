@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="refresh">refresh</string>
+    <string name="browse">Browse</string>
+    <string name="deskripsi">Deskripsi</string>
+    <string name="all_event">All Event</string>
+    <string name="desc_favorite_button">Favorite Button</string>
+</resources>
