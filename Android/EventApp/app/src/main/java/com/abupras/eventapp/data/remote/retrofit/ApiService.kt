@@ -2,7 +2,6 @@ package com.abupras.eventapp.data.remote.retrofit
 
 import com.abupras.eventapp.data.remote.response.DetailEventResponse
 import com.abupras.eventapp.data.remote.response.EventResponse
-import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {

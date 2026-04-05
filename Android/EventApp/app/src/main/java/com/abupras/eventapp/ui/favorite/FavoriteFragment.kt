@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abupras.eventapp.HomeNavActivity
 import com.abupras.eventapp.data.Result
@@ -15,6 +16,8 @@ import com.abupras.eventapp.databinding.FragmentFavoriteBinding
 import com.abupras.eventapp.ui.DetailActivity
 import com.abupras.eventapp.ui.EventViewModel
 import com.abupras.eventapp.ui.ViewModelFactory
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class FavoriteFragment : Fragment() {
 
@@ -65,8 +68,11 @@ class FavoriteFragment : Fragment() {
             }
 
             is Result.Success -> {
-                showError(false)
-                this.submitList(result.data)
+                lifecycleScope.launch {
+                    delay(500)
+                    showError(false)
+                    this@showAllFavorite.submitList(result.data)
+                }
             }
         }
 

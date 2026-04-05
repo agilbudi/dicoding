@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abupras.eventapp.HomeNavActivity
 import com.abupras.eventapp.R
@@ -30,6 +31,8 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class UpcomingFragment : Fragment() {
 
@@ -79,9 +82,12 @@ class UpcomingFragment : Fragment() {
                     showError(true)
                 }
                 is Result.Success -> {
-                    (activity as? HomeNavActivity)?.showLoading(false)
-                    showError(false)
-                    this.submitList(event.data)
+                    lifecycleScope.launch {
+                        delay(500)
+                        (activity as? HomeNavActivity)?.showLoading(false)
+                        showError(false)
+                        this@showAllEvent.submitList(event.data)
+                    }
                 }
             }
         }

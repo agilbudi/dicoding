@@ -55,6 +55,14 @@ class HomeNavActivity : AppCompatActivity() {
         viewModelSetting.getTitleSettings().observe(this) { title ->
             tvSwitchTitle?.text = title
         }
+        switchTheme?.setOnCheckedChangeListener { _, isChecked ->
+            viewModelSetting.saveThemeSetting(isChecked)
+            if (!isChecked) {
+                viewModelSetting.saveTitleSetting("Day Theme")
+            } else {
+                viewModelSetting.saveTitleSetting("Night Theme")
+            }
+        }
         viewModelSetting.getThemeSettings().observe(this) { isNightMode: Boolean ->
             if (isNightMode) {
                 switchTheme?.isChecked = true
@@ -63,14 +71,6 @@ class HomeNavActivity : AppCompatActivity() {
                 switchTheme?.isChecked = false
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
-        }
-        switchTheme?.setOnCheckedChangeListener { _, isChecked ->
-            if (!isChecked) {
-                viewModelSetting.saveTitleSetting("Day Theme")
-            } else {
-                viewModelSetting.saveTitleSetting("Night Theme")
-            }
-            viewModelSetting.saveThemeSetting(isChecked)
         }
         return true
     }
