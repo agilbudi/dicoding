@@ -1,4 +1,4 @@
-package com.abupras.eventapp.data.retrofit
+package com.abupras.eventapp.data.remote.retrofit
 
 import com.abupras.eventapp.BuildConfig
 import okhttp3.OkHttpClient
@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
     companion object{
-        fun getApiService(): ApiService{
+        fun getApiService(): ApiService {
             val loggingInterceptor = if(BuildConfig.DEBUG) {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             } else {

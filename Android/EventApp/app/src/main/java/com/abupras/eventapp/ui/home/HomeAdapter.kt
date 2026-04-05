@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.abupras.eventapp.R
-import com.abupras.eventapp.data.response.ListEventsItem
+import com.abupras.eventapp.data.local.entitiy.EventEntity
 import com.abupras.eventapp.databinding.ItemHomeBinding
-import com.abupras.eventapp.ui.home.HomeAdapter.MyViewHolder
+import com.abupras.eventapp.ui.home.HomeAdapter.HomeViewHolder
 import com.abupras.eventapp.utils.changeFormatDate
 import com.abupras.eventapp.utils.getPalette
 import com.bumptech.glide.Glide
@@ -21,19 +21,19 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 
-class HomeAdapter: ListAdapter<ListEventsItem, MyViewHolder>(DIFF_CALLBACK) {
-    private var onItemClickCallback: ((ListEventsItem) -> Unit)? = null
+class HomeAdapter: ListAdapter<EventEntity, HomeViewHolder>(DIFF_CALLBACK) {
+    private var onItemClickCallback: ((EventEntity) -> Unit)? = null
 
-    fun setOnItemClickCallback(onItemClickCallback: (ListEventsItem) -> Unit){
+    fun setOnItemClickCallback(onItemClickCallback: (EventEntity) -> Unit){
         this.onItemClickCallback = onItemClickCallback
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val binding = ItemHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyViewHolder(binding)
+        return HomeViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
         holder.itemView.setOnClickListener {
@@ -41,11 +41,10 @@ class HomeAdapter: ListAdapter<ListEventsItem, MyViewHolder>(DIFF_CALLBACK) {
         }
     }
 
-    class MyViewHolder(private val binding: ItemHomeBinding) : RecyclerView.ViewHolder(binding.root) {
+    class HomeViewHolder(private val binding: ItemHomeBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(event: ListEventsItem){
+        fun bind(event: EventEntity){
             val glide = Glide.with(itemView.context)
-
             with(binding){
                 tvHomeName.text = event.name
                 tvHomeCategory.text = event.category
@@ -91,17 +90,17 @@ class HomeAdapter: ListAdapter<ListEventsItem, MyViewHolder>(DIFF_CALLBACK) {
     companion object {
         private const val COLOR_DEFAULT = Color.LTGRAY
         private const val TAG = "EventAdapter"
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListEventsItem>(){
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<EventEntity>(){
             override fun areItemsTheSame(
-                oldItem: ListEventsItem,
-                newItem: ListEventsItem
+                oldItem: EventEntity,
+                newItem: EventEntity
             ): Boolean {
-                return oldItem == newItem
+                return oldItem.eventId == newItem.eventId
             }
 
             override fun areContentsTheSame(
-                oldItem: ListEventsItem,
-                newItem: ListEventsItem
+                oldItem: EventEntity,
+                newItem: EventEntity
             ): Boolean {
                 return oldItem == newItem
             }

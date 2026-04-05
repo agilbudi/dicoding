@@ -10,16 +10,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DiffUtil
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abupras.eventapp.HomeNavActivity
 import com.abupras.eventapp.R
-import com.abupras.eventapp.data.response.ListEventsItem
+import com.abupras.eventapp.data.Result
+import com.abupras.eventapp.data.local.entitiy.EventEntity
 import com.abupras.eventapp.databinding.FragmentFinishedBinding
 import com.abupras.eventapp.databinding.ItemEventBinding
+import com.abupras.eventapp.helper.EventDiffCallback
 import com.abupras.eventapp.ui.DetailActivity
 import com.abupras.eventapp.ui.EventAdapter
+import com.abupras.eventapp.ui.EventViewModel
+import com.abupras.eventapp.ui.ViewModelFactory
 import com.abupras.eventapp.utils.changeFormatDate
 import com.abupras.eventapp.utils.getPalette
 import com.bumptech.glide.Glide
@@ -34,21 +37,14 @@ class FinishedFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    @SuppressLint("NotifyDataSetChanged")
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val finishedViewModel =
-            ViewModelProvider(this)[FinishedViewModel::class.java]
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        _binding = FragmentFinishedBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(requireContext())
+        val viewModel: EventViewModel by viewModels {
+            factory
+        }
         val layoutManager = LinearLayoutManager(requireContext())
-        binding.rvFinished.layoutManager = layoutManager
-
         val adapter = EventAdapter(
             bindingFactory = ItemEventBinding::inflate,
             bind = { binding, item ->
@@ -56,39 +52,51 @@ class FinishedFragment : Fragment() {
             },
             onItemClick = { event ->
                 val intent = Intent(requireContext(), DetailActivity::class.java)
-                intent.putExtra(DetailActivity.EVENTS, event.id)
+                intent.putExtra(DetailActivity.EVENTS, event.eventId)
                 startActivity(intent)
             },
             diffCallback = EventDiffCallback
         )
+        binding.rvFinished.layoutManager = layoutManager
+        binding.rvFinished.adapter = adapter
+        (activity as? HomeNavActivity)?.setTitle("Finished Events")
 
-        finishedViewModel.title.observe(viewLifecycleOwner){
-            (activity as? HomeNavActivity)?.setTitle(it)
+        viewModel.getEvent(EVENT_FINISHED).observe(viewLifecycleOwner){ event ->
+            adapter.showAllEvent(event)
         }
-        finishedViewModel.isLoading.observe(viewLifecycleOwner){
-            (activity as? HomeNavActivity)?.showLoading(it)
+        binding.btnFinishedRetry.setOnClickListener {
+            viewModel.getEvent(EVENT_FINISHED)
         }
-        finishedViewModel.listEvents.observe(viewLifecycleOwner){ events ->
-            if (events != null){
-                if (events.error){
-                    with(binding){
-                        adapter.notifyDataSetChanged()
-                        showError(true)
-                        tvFinishedErrorMessage.text = events.message
-                    }
-                }else{
+    }
+
+    private fun EventAdapter<EventEntity, ItemEventBinding>.showAllEvent(event: Result<List<EventEntity>>?) {
+        if (event != null){
+            when(event){
+                is Result.Loading -> {
+                    (activity as? HomeNavActivity)?.showLoading(true)
+                }
+                is Result.Error -> {
+                    (activity as? HomeNavActivity)?.showLoading(false)
+                    showError(true)
+                }
+                is Result.Success -> {
+                    (activity as? HomeNavActivity)?.showLoading(false)
                     showError(false)
-                    adapter.submitList(events.listEvents)
+                    this.submitList(event.data)
                 }
             }
         }
-        binding.btnFinishedRetry.setOnClickListener {
-            finishedViewModel.getFinishedEvent(EVENT_FINISHED)
-        }
+    }
 
-        binding.rvFinished.adapter = adapter
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
-        return root
+        _binding = FragmentFinishedBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     private fun showError(isError: Boolean){
@@ -104,7 +112,7 @@ class FinishedFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setDataView(binding: ItemEventBinding, item: ListEventsItem) {
+    private fun setDataView(binding: ItemEventBinding, item: EventEntity) {
         val glide = Glide.with(requireContext())
         with(binding){
             tvName.text = item.name
@@ -154,21 +162,6 @@ class FinishedFragment : Fragment() {
         private const val COLOR_DEFAULT = Color.LTGRAY
         private const val TAG = "FinishedFragment"
         private const val EVENT_FINISHED = 0
-        object EventDiffCallback : DiffUtil.ItemCallback<ListEventsItem>() {
-            override fun areItemsTheSame(
-                oldItem: ListEventsItem,
-                newItem: ListEventsItem,
-            ): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(
-                oldItem: ListEventsItem,
-                newItem: ListEventsItem,
-            ): Boolean {
-                return oldItem == newItem
-            }
-        }
     }
 
     override fun onDestroyView() {

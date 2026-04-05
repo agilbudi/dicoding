@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_switch_theme"
+    android:orientation="horizontal"
+    android:layout_height="match_parent"
+    android:layout_width="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_switch_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="8dp"
+        android:textStyle="bold"
+        tools:ignore="TextContrastCheck"
+        tools:text="@string/day_theme" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/swv_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="8dp"/>
+</LinearLayout>

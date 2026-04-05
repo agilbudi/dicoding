@@ -1,4 +1,4 @@
-package com.abupras.eventapp.data.response
+package com.abupras.eventapp.data.remote.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -22,8 +22,14 @@ data class ListEventsItem(
 	@field:SerializedName("summary")
 	val summary: String,
 
+	@field:SerializedName("description")
+	val description: String,
+
 	@field:SerializedName("mediaCover")
 	val mediaCover: String,
+
+	@field:SerializedName("ownerName")
+	val ownerName: String,
 
 	@field:SerializedName("imageLogo")
 	val imageLogo: String,
@@ -46,9 +52,19 @@ data class ListEventsItem(
 	@field:SerializedName("beginTime")
 	val beginTime: String,
 
+	@field:SerializedName("endTime")
+	val endTime: String,
+
 	@field:SerializedName("category")
-	val category: String
+	val category: String,
+
+	@field:SerializedName("link")
+	val link: String
 ) : Parcelable
+
+
+
+
 
 data class DetailEventResponse(
 

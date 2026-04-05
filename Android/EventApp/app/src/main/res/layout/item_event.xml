@@ -37,7 +37,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_media_cover"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.SmallComponent"
-            tools:src="@tools:sample/backgrounds/scenic"/>
+            tools:src="@tools:sample/backgrounds/scenic"
+            tools:ignore="VisualLintBounds" />
 
         <TextView
             android:id="@+id/tv_category"
@@ -51,6 +52,7 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_media_cover"
+            tools:ignore="TextContrastCheck,VisualLintBounds"
             tools:text="Technology" />
 
         <TextView
@@ -66,7 +68,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_image_logo"
-            tools:text="Event Name Example" />
+            tools:text="Event Name Example"
+            tools:ignore="VisualLintBounds" />
 
         <TextView
             android:id="@+id/tv_summary"
@@ -77,10 +80,11 @@
             android:fontFamily="sans-serif-condensed-light"
             android:textSize="14sp"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_name"
+            tools:ignore="TextContrastCheck,VisualLintBounds,VisualLintLongText"
             tools:text="@tools:sample/lorem/random" />
 
         <TextView
@@ -88,14 +92,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="12sp"
             android:ellipsize="end"
             android:maxLines="2"
-            app:layout_constraintHorizontal_weight="0.65"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/tv_quota"
+            app:layout_constraintHorizontal_weight="0.65"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_summary"
+            tools:ignore="TextContrastCheck,VisualLintBounds"
             tools:text="Jakarta • 20 Oct 2023, 10:00" />
 
         <TextView
@@ -112,7 +117,7 @@
             app:layout_constraintStart_toEndOf="@id/tv_city_time"
             app:layout_constraintTop_toTopOf="@id/tv_city_time"
             tools:text="Quota: 50 left"
-            tools:ignore="SmallSp" />
+            tools:ignore="SmallSp,VisualLintBounds" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
